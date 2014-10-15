@@ -60,18 +60,17 @@ public class backgammonBoard {
         System.out.println("24 -> white side pocket, 25 -> black side pocket");
     }
 
-    public static int gameOver(){
-
-        if(deck.get(24) == 15){
-            return 1;
+    public int gameOver(){
+        int white = deck.get(24);//piasto sidepocket tou asprou
+        if(white == 15){//an en gemato
+        return 1;//epestrepse 1
         }
-        if(deck.get(25) == 15){
-            return 2;
+        int black = deck.get(25);
+        if(black == 15){
+        return 2;//epestrepse 2
         }
-        return 0;
+       return 0;//epestrepse 0, to paixnidi paei akoma
     }
-
-
 }
 
 

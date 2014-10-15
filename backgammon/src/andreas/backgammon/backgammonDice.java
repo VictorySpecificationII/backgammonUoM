@@ -28,4 +28,7 @@ public class backgammonDice { //WORKS, DONE
     public int getDiceRoll(){
         return result;
     }
+    public void setResult(int newResult){
+      result = newResult;
+    }
 }
