@@ -3,12 +3,18 @@ package andreas.backgammon;
 import java.util.Scanner;
 
 public class Main {
-    private static void updateBoard() {
+    public static void updateBoard() {
+    }
+
+    public static void gameOverSession(){
+
     }
     //Accept input parameters
     public static void AcceptInputParameters(int noOfGames){
         int noGames = noOfGames;
     }
+
+
 
     public static int makeMoves(int noMoves, int diceOneResult, int diceTwoResult){
 
@@ -21,8 +27,8 @@ public class Main {
         
         Scanner reader = new Scanner(System.in);//tzainourko instance scanner
         System.out.print("Enter the number of games you wish to play:");//grapse tou
-        int input = reader.nextInt();//piasto noumero
-        AcceptInputParameters(input);//dosto tou functions
+        int noGames = reader.nextInt();//piasto noumero
+        AcceptInputParameters(noGames);//dosto tou functions
 
         backgammonPlayer player = new backgammonPlayer();//skeftou to etsi: ksekina to paixnidi, eisai ena instance enos paixti
         backgammonBoard board = new backgammonBoard();//annoieis to deck
@@ -55,28 +61,32 @@ public class Main {
             player.setPlayerColor("b");//to xroma s en mavro men me rotiseis giati
             //send number 1 and to other client
         }
-
-        while((player.yourTurn == 1)&&(noMoves != 0)){ // oson en i seira s j en efaes tes kiniseis s
-            //block p2 from acting
+        if(player.yourTurn == 1) {//an en i seira s
             dice1.rollDice();//sirneis zarkan
             dice2.rollDice();//sirneis zarkan
             player.setNumbersFromRoll1(dice1.getDiceRoll());//to proto noumero p esheis
             player.setNumbersFromRoll2(dice2.getDiceRoll());//to deftero noumero p esheis
 
-            if(player.numbersFromRoll1 == player.numbersFromRoll2){//an en ta idia, diples, 4 kiniseis
+            if (player.numbersFromRoll1 == player.numbersFromRoll2) {//an en ta idia, diples, 4 kiniseis
                 noMoves = 4;
             }
-            if(player.numbersFromRoll1 != player.numbersFromRoll2){//an den einai ta idia, 2 kiniseis
+            if (player.numbersFromRoll1 != player.numbersFromRoll2) {//an den einai ta idia, 2 kiniseis
                 noMoves = 2;
             }
+        }
+        while((player.yourTurn == 1)&&(noMoves != 0)){ // oson en i seira s j en efaes tes kiniseis s
+            //block p2 from acting
+
             makeMoves(noMoves, player.numbersFromRoll1, player.numbersFromRoll2);//kamneis kiniseis
             updateBoard();//kamneis update to deck opos tarasseis tes petres stin pragmatiki zoi
 
             if((board.gameOver() == 1)&&(player.playerColor == "w")){
-                System.out.println("white player has lost (no it's not racist, it's computer science)");
+                System.out.println("white player has won (no it's not racist, it's computer science)");
+                gameOverSession();
             }
             else if((board.gameOver() == 2)&&(player.playerColor == "b")){
                 System.out.println("black player has won (no it's not racist, it's computer science)");
+                gameOverSession();
             }
             else{//to paixnidi sinexizetai
                 System.out.println("Go on, you're good to go!");
