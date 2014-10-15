@@ -9,6 +9,7 @@ public class backgammonPlayer{
     int score;
     int playerNumber;
     String playerColor;
+    int yourTurn;
     int numbersFromRoll1;
     int numbersFromRoll2;
 
@@ -16,6 +17,7 @@ public class backgammonPlayer{
     public backgammonPlayer(){
         score = 0;//o kathe paixtis eshei j ena score p stin arxi en 0
         playerNumber = 0;//enna apofasistei meta tin monin tin zarkan
+        yourTurn = 0;
         playerColor = "n";//dimiourgas enan instance, pou enna tou dokeis values meta
         numbersFromRoll1 = 0;//tin ora pou sirneis zarka, to apotelesma en gia sena taxa en ta noumera p enna pai3eis
         numbersFromRoll2 = 0;//to idio pou panw
@@ -40,5 +42,8 @@ public class backgammonPlayer{
 
     public void setNumbersFromRoll2(int newDiceRoll2){
         numbersFromRoll2 = newDiceRoll2;
+    }
+    public int getPlayerNumber(){
+        return playerNumber;
     }
 }
