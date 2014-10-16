@@ -71,6 +71,17 @@ public class backgammonBoard {
         }
        return 0;//epestrepse 0, to paixnidi paei akoma
     }
+    public int thereExistRocksOnBar(String color) {
+       if(color == "w")
+           return deck.get(24);
+       else if(color == "b")
+           return deck.get(25);
+       else
+           return 0;
+
+    }
+
+
 }
 
 
