@@ -13,6 +13,7 @@ public class backgammonPlayer{
     int bar;
     int numbersFromRoll1;
     int numbersFromRoll2;
+    int moves;
 
     //Constructor
     public backgammonPlayer(){
@@ -23,30 +24,33 @@ public class backgammonPlayer{
         playerColor = "n";//dimiourgas enan instance, pou enna tou dokeis values meta
         numbersFromRoll1 = 0;//tin ora pou sirneis zarka, to apotelesma en gia sena taxa en ta noumera p enna pai3eis
         numbersFromRoll2 = 0;//to idio pou panw
+        moves = 0;
     }
-    //method gia na allasei to score kathe telos tou paixnithkiou
-    public void setScore(){
-        score++;
+
+    public void setScore(){score++;}
+    public int getScore(){return score;}
+
+    public void setPlayerNumber(int newPlayerNumber){playerNumber = newPlayerNumber; }
+    public int getPlayerNumber(){
+        return playerNumber;
     }
-    //method gia na dias seira stous paixtes, taxa pios enna paiksei protos
-    public void setPlayerNumber(int newPlayerNumber){
-        playerNumber = newPlayerNumber;
-    }
-    //method gia na dokeis ston kathe paixti to xroma p enna 8kialeksei
+
     public void setPlayerColor(String newPlayerColor){
         playerColor = newPlayerColor;
     }
+    public String getPlayerColor() {return playerColor;}
 
     public void setNumbersFromRoll1(int newDiceRoll1){
         numbersFromRoll1 = newDiceRoll1;
     }
-
+    public int getNumbersFromRoll1(){return numbersFromRoll1;}
 
     public void setNumbersFromRoll2(int newDiceRoll2){
         numbersFromRoll2 = newDiceRoll2;
     }
-    public int getPlayerNumber(){
-        return playerNumber;
-    }
+    public int getNumbersFromRoll2(){return numbersFromRoll2;}
+
+    public void setMoves(int amount){moves = amount;}
+    public int getMovesLeft(){return moves;}
 
 }

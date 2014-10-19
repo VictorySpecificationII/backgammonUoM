@@ -60,24 +60,67 @@ public class backgammonBoard {
         System.out.println("24 -> white side pocket, 25 -> black side pocket");
     }
 
+    public void addStone(int target, String color){
+        //if empty vector
+        if((deck.get(target) == 0)&&(colors.get(target) == "n")) {
+            deck.put(target, deck.get(target) + 1);
+            colors.put(target, color);
+        }
+        //if 1 or more rocks
+        else if(((deck.get(target) == 1)||(deck.get(target) > 1))){
+            deck.put(target, deck.get(target)+1);
+
+        }
+    }
+
+    public void removeStone(int target, String color ){
+        //if operation performed on an empty vector
+        if((deck.get(target) == 0)&&(colors.get(target) == "n")) {
+           System.out.println("Not allowed, empty vector");
+        }
+        //if one rock
+        else if((deck.get(target) > 1)){//if more than one
+            deck.put(target, deck.get(target)-1);//remove one
+            }
+        else if(deck.get(target) == 1){
+            deck.put(target, deck.get(target) -1);
+            colors.put(target, "n");
+        }
+        else
+            System.out.println("Something's wrong");
+
+    }
     public int gameOver(){
         int white = deck.get(24);//piasto sidepocket tou asprou
         if(white == 15){//an en gemato
+            System.out.println("white player won!");
         return 1;//epestrepse 1
         }
         int black = deck.get(25);
         if(black == 15){
+            System.out.println("black player won!");
         return 2;//epestrepse 2
         }
        return 0;//epestrepse 0, to paixnidi paei akoma
     }
     public int thereExistRocksOnBar(String color) {
-       if(color == "w")
-           return deck.get(24);
-       else if(color == "b")
-           return deck.get(25);
-       else
-           return 0;
+        int r;
+        if (color == "w") {
+            r = deck.get(24);
+            if (r != 0) {//if the result is not zero then it means that there's stones in the bar
+                return 1;
+            }
+        }
+        else if (color == "b") {
+            r = deck.get(25);
+            if (r != 0) {//if the result is not zero then it means that there's stones in the bar
+                return 2;
+            }
+        }
+        else
+            return 10;
+
+        return 0;
 
     }
 
