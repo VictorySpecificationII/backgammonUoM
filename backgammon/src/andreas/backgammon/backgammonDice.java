@@ -7,28 +7,27 @@ import java.util.Random;
 public class backgammonDice { //WORKS, DONE
 
     //A dice has these properties
-    Random diceNumbers;
-    int result;
+    private int dice1;   // Number showing on the first die.
+    private int dice2;   // Number showing on the second die.
 
 
     //Constructor
     public backgammonDice(){
-       int diceOutput = result;
+        rollDice();
     }
 
 
     //Methods for the dice
 
     public void rollDice(){
-        diceNumbers = new Random();
-        result = diceNumbers.nextInt(7 - 1) + 1;
+        dice1 = (int)(Math.random()*6) + 1;
+        dice2 = (int)(Math.random()*6) + 1;
 
     }
 
-    public int getDiceRoll(){
-        return result;
+    public int getDiceRoll1(){
+        return dice1;
     }
-    public void setResult(int newResult){
-      result = newResult;
-    }
+    public int getDiceRoll2() { return dice2; }
+
 }

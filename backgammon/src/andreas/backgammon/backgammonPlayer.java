@@ -6,6 +6,7 @@ package andreas.backgammon;
 public class backgammonPlayer{
     
     //A player has these properties
+    String name;
     int score;
     int playerNumber;
     String playerColor;
@@ -17,6 +18,7 @@ public class backgammonPlayer{
 
     //Constructor
     public backgammonPlayer(){
+        name = "none";
         score = 0;//o kathe paixtis eshei j ena score p stin arxi en 0
         playerNumber = 0;//enna apofasistei meta tin monin tin zarkan
         yourTurn = 0;
@@ -27,8 +29,18 @@ public class backgammonPlayer{
         moves = 0;
     }
 
+    public void setYourTurn(int turn){yourTurn = turn;}
+    public int getYourTurn(){return yourTurn;}
+
     public void setScore(){score++;}
     public int getScore(){return score;}
+
+    public void setBar(int newBar){
+        bar = newBar;
+    }
+    public int getBar(){
+        return bar;
+    }
 
     public void setPlayerNumber(int newPlayerNumber){playerNumber = newPlayerNumber; }
     public int getPlayerNumber(){
@@ -52,5 +64,10 @@ public class backgammonPlayer{
 
     public void setMoves(int amount){moves = amount;}
     public int getMovesLeft(){return moves;}
+
+    public void setName(String newName){name = newName;}
+    public String getName(){return name;}
+
+
 
 }
