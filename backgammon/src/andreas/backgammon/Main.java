@@ -6,10 +6,42 @@ public class Main {
 
     public static void makeMoves(){
 
-    //todo:check here if he's bearing off
-    //todo:code add/remove stones in makemoves
-    //todo:finish vectors 18-23
-    //todo: investigate forfeit on chess
+        board.removeStone(currentRock, currentPlayer.getPlayerColor());
+        board.addStone(target, currentPlayer.getPlayerColor());
+        System.out.println(board.deck.toString());
+        System.out.println(board.colors.toString());
+        currentPlayer.setMoves(currentPlayer.getMovesLeft() - 1);
+        System.out.println("Moves left for "+ currentPlayer.getName() + ": "+currentPlayer.getMovesLeft());
+        //if player has ran out of moves, check who goes next
+        if(currentPlayer.getMovesLeft() == 0){
+            if(currentPlayer.getPlayerNumber() == 1){
+                System.out.println("first if");
+                //set your turn of current player to 0
+                currentPlayer.setYourTurn(0);
+                //set your turn of opponent to 1
+                enemyPlayer.setYourTurn(1);
+                backgammonPlayer tempPlayer;//-------▽
+                tempPlayer = currentPlayer; //------>SWAP PLAYERS
+                currentPlayer = enemyPlayer;//-------△
+                System.out.println("Current player: " + currentPlayer.getName());
+                enemyPlayer = tempPlayer;
+                System.out.println("Enemy player: " + enemyPlayer.getName());
+
+            }
+            else if(currentPlayer.getPlayerNumber() == 2){
+                System.out.println("second if");
+                //set your turn of current player to 0
+                currentPlayer.setYourTurn(0);
+                //set your turn of opponent to 1
+                enemyPlayer.setYourTurn(1);
+                backgammonPlayer tempPlayer;//-------▽
+                tempPlayer = currentPlayer; //------>SWAP PLAYERS
+                currentPlayer = enemyPlayer;//-------△
+                System.out.println("Current player: " + currentPlayer.getName());
+                enemyPlayer = tempPlayer;
+                System.out.println("Enemy player: " + enemyPlayer.getName());
+            }
+        }
     }
 
 
@@ -56,7 +88,6 @@ public class Main {
 
     public static boolean isCurrentMoveLegit(backgammonPlayer currentPlayer, int currentRock, int currentRoll) {
 
-       board.toString();
 
         //if current player has rocks on his bar and is white
         if ((currentPlayer.playerColor == "w") && (board.thereExistRocksOnBar(currentPlayer.getPlayerColor())) == 1) {
@@ -106,7 +137,7 @@ public class Main {
             System.out.println("More than one stones of enemy color, move not allowed");
             return false;
         }
-
+        System.out.println("Last return in method");
         return false;//return false dy default because the criteria isn't satisfied
     }
 
@@ -258,7 +289,7 @@ public static void gameLoop() {
             currentRock = reader.nextInt();
             boolean check = isCurrentRockAllowed(currentPlayer, currentRock);//this method only checks if the rock selected can be moved, doesn't check destination
                while (check == false) {
-                    //System.out.println("Invalid entry, the stone you are trying to move either isn't there or isn't yours");
+                    System.out.println("Invalid entry, the stone you are trying to move either isn't there or isn't yours");
                     System.out.print("which rock would you like to move?");
                     currentRock = reader.nextInt();
                     check = isCurrentRockAllowed(currentPlayer, currentRock);
@@ -284,22 +315,9 @@ public static void gameLoop() {
             //check legality of move to be performed
             check = isCurrentMoveLegit(currentPlayer, currentRock, currentRoll);
             System.out.println(check);
-             if (isCurrentMoveLegit(currentPlayer, currentRock, currentRoll) == true) {
+             if (check == true)
                makeMoves();
                System.out.println("Game status: " + board.gameOver());
-              }
-                //if player has ran out of moves, check who goes next
-              if(currentPlayer.getMovesLeft() == 0){
-              if(currentPlayer.getPlayerNumber() == 1){
-                  currentPlayer = player2;
-                  enemyPlayer = player1;
-              }
-              if(currentPlayer.getPlayerNumber() == 2){
-                  currentPlayer = player1;
-                  enemyPlayer = player2;
-              }
-              }
-
             }
            }
 
