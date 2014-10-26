@@ -39,32 +39,35 @@ public class Main {
         board.setupBoard();//setup the deck
     }
 
+    public static boolean isCurrentRockAllowed(backgammonPlayer currentPlayer, int currentRock){
+        String currentPlayerColor = currentPlayer.getPlayerColor();//return current player's color
+        String desiredRockColor = board.colors.get(currentRock);//get color
+        System.out.println("current player color: "+currentPlayerColor);
+        System.out.println("desired rock color: "+desiredRockColor);
 
-    public static boolean isCurrentMoveLegit(backgammonPlayer currentPlayer, backgammonPlayer enemyPlayer,
-                                             backgammonBoard board, int currentRock, int currentRoll) {
+        if(currentPlayerColor == desiredRockColor){//if there's more than one stones and the colors permit moving
+            System.out.println("Ok, rock allowed to move");
+            return true;
+        }
+        System.out.println("Rock not allowed to move");
+        return false;
+    }
 
 
-        int targetVector = board.deck.get(target);//get status of target vector
-        String targetVectorC = board.colors.get(target);//get color of target vector
+    public static boolean isCurrentMoveLegit(backgammonPlayer currentPlayer, int currentRock, int currentRoll) {
 
+       board.toString();
 
         //if current player has rocks on his bar and is white
-        if ((currentPlayer.playerColor == "w") && (board.thereExistRocksOnBar(currentPlayer.playerColor)) == 1) {
+        if ((currentPlayer.playerColor == "w") && (board.thereExistRocksOnBar(currentPlayer.getPlayerColor())) == 1) {
             System.out.println("current player has rocks on his bar and is white");
             return false;
         }
         //if current player has rocks on his bar and is black
-        if ((currentPlayer.playerColor == "b") && (board.thereExistRocksOnBar(currentPlayer.playerColor)) == 2) {
+        else if ((currentPlayer.playerColor == "b") && (board.thereExistRocksOnBar(currentPlayer.getPlayerColor())) == 2) {
             System.out.println("current player has rocks on his bar and is black");
             return false;
         }
-
-        //check if violates the boudaries
-        if(target > 23 || target < 0){
-            System.out.println("violates board's boundaries");
-            return false;//can't go out of boundaries
-        }
-        //False cases covered, now calculating for true cases
         //calculate the target vector if white player
         if (currentPlayer.playerColor == "w"){
             target = currentRock + currentRoll;
@@ -74,23 +77,32 @@ public class Main {
             target = currentRock - currentRoll;//going the other way around
         }
 
+        int targetVector = board.deck.get(target);//get status of target vector
+        String targetVectorC = board.colors.get(target);//get color of target vector
+
+        //check if violates the boudaries
+        if(target > 23 || target < 0){
+            System.out.println("violates board's boundaries");
+            return false;//can't go out of boundaries
+        }
+
         if(targetVector == 0){
             System.out.println("Target vector empty, proceed");
             return true;
         }
         //target has one rock of current player's color
-        else if((targetVector == 1)&&(targetVectorC.equals(currentPlayer.playerColor))){
+        else if((targetVector == 1)&&(targetVectorC.equals(currentPlayer.getPlayerColor()))){
             System.out.println("target has one rock of current player's color, proceed");
             return true;
         }
         //target has one rock of enemy player's color
-        else if((targetVector == 1)&&(targetVectorC.equals(enemyPlayer.playerColor))){
+        else if((targetVector == 1)&&(targetVectorC.equals(enemyPlayer.getPlayerColor()))){
             System.out.println("target has one rock of enemy's color, proceed to hit and land");
             boolean hit = true;
             return true;
         }
         //target has more than one stones of enemy color
-        if((targetVector > 1)&&(targetVectorC.equals(enemyPlayer.playerColor))){
+        if((targetVector > 1)&&(targetVectorC.equals(enemyPlayer.getPlayerColor()))){
             System.out.println("More than one stones of enemy color, move not allowed");
             return false;
         }
@@ -244,7 +256,7 @@ public static void gameLoop() {
             }
             System.out.print(currentPlayer.getName()+", which rock would you like to move?");
             currentRock = reader.nextInt();
-            /*boolean check = isCurrentRockAllowed(currentPlayer, currentRock);//this method only checks if the rock selected can be moved, doesn't check destination
+            boolean check = isCurrentRockAllowed(currentPlayer, currentRock);//this method only checks if the rock selected can be moved, doesn't check destination
                while (check == false) {
                     //System.out.println("Invalid entry, the stone you are trying to move either isn't there or isn't yours");
                     System.out.print("which rock would you like to move?");
@@ -254,7 +266,7 @@ public static void gameLoop() {
                         System.out.println("Ok, rock allowed");
                         break;
                     }
-                }*/
+                }
 
             System.out.println("Roll 1: " + currentPlayer.getNumbersFromRoll1() + ", " + "Roll 2: " + currentPlayer.getNumbersFromRoll2());
             System.out.println("Which roll are you playing first?");
@@ -270,9 +282,9 @@ public static void gameLoop() {
             }
 
             //check legality of move to be performed
-            boolean check = isCurrentMoveLegit(currentPlayer, enemyPlayer, board, currentRock, currentRoll);
+            check = isCurrentMoveLegit(currentPlayer, currentRock, currentRoll);
             System.out.println(check);
-             if (isCurrentMoveLegit(currentPlayer, enemyPlayer, board, currentRock, currentRoll) == true) {
+             if (isCurrentMoveLegit(currentPlayer, currentRock, currentRoll) == true) {
                makeMoves();
                System.out.println("Game status: " + board.gameOver());
               }

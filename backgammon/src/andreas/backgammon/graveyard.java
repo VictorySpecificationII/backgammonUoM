@@ -46,15 +46,4 @@ public class graveyard {/*
 }
 
 
-/*    public static boolean isCurrentRockAllowed(backgammonPlayer currentPlayer, int currentRock){
-        String playerC = currentPlayer.getPlayerColor();//return current player's color
-        currentRock = board.deck.get(currentRock);//get number of rocks
-        String desiredRockColor = board.colors.get(currentRock);//get color
-
-        if((currentRock >0)&&(playerC == desiredRockColor)){//if there's more than one stones and the colors permit moving
-                System.out.println("Ok, rock allowed to move");
-                return true;
-        }
-        System.out.println("Rock not allowed to move");
-        return false;
-    }*/
+/*    */
