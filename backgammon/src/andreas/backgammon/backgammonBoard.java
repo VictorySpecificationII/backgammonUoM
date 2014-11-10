@@ -60,7 +60,7 @@ public class backgammonBoard {
         System.out.println("24 -> white side pocket, 25 -> black side pocket");
     }
 
-    public void addStone(int target, String color){
+    public void addStone(int target, String color, backgammonPlayer enemyPlayer, backgammonPlayer currentPlayer){
         //if empty vector
         if((deck.get(target) == 0)&&(colors.get(target) == "n")) {
             deck.put(target, deck.get(target) + 1);
@@ -70,6 +70,14 @@ public class backgammonBoard {
         else if(((deck.get(target) == 1)||(deck.get(target) > 1))){
             deck.put(target, deck.get(target)+1);
 
+        }
+        //if 1 rock, and the color is of the enemy player
+        else if((deck.get(target) == 1)&&(colors.get(target) == enemyPlayer.getPlayerColor())){
+            
+            enemyPlayer.setBar(enemyPlayer.bar + 1);
+            deck.put(enemyPlayer.getBar(), enemyPlayer.bar + 1);
+            deck.put(target, 1);
+            colors.put(target, currentPlayer.getPlayerColor());
         }
     }
 

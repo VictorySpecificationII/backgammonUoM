@@ -7,10 +7,18 @@ public class Main {
     public static void makeMoves(){
 
         board.removeStone(currentRock, currentPlayer.getPlayerColor());
-        board.addStone(target, currentPlayer.getPlayerColor());
+        board.addStone(target, currentPlayer.getPlayerColor(), enemyPlayer, currentPlayer);
         System.out.println(board.deck.toString());
         System.out.println(board.colors.toString());
         currentPlayer.setMoves(currentPlayer.getMovesLeft() - 1);
+        if(currentRoll == currentPlayer.getNumbersFromRoll1() && currentPlayer.getMovesLeft() < 3){
+            currentPlayer.setNumbersFromRoll1(0);
+            System.out.println("Roll 1 "+currentPlayer.getNumbersFromRoll1());
+        }
+        if(currentRoll == currentPlayer.getNumbersFromRoll2() && currentPlayer.getMovesLeft() < 3){
+            currentPlayer.setNumbersFromRoll2(0);
+           System.out.println("Roll 2 "+currentPlayer.getNumbersFromRoll2());
+        }
         System.out.println("Moves left for "+ currentPlayer.getName() + ": "+currentPlayer.getMovesLeft());
         //if player has ran out of moves, check who goes next
         if(currentPlayer.getMovesLeft() == 0){
@@ -114,6 +122,7 @@ public class Main {
         //check if violates the boudaries
         if(target > 23 || target < 0){
             System.out.println("violates board's boundaries");
+
             return false;//can't go out of boundaries
         }
 
@@ -124,6 +133,7 @@ public class Main {
         //target has one rock of current player's color
         else if((targetVector == 1)&&(targetVectorC.equals(currentPlayer.getPlayerColor()))){
             System.out.println("target has one rock of current player's color, proceed");
+
             return true;
         }
         //target has one rock of enemy player's color
@@ -135,6 +145,7 @@ public class Main {
         //target has more than one stones of enemy color
         if((targetVector > 1)&&(targetVectorC.equals(enemyPlayer.getPlayerColor()))){
             System.out.println("More than one stones of enemy color, move not allowed");
+
             return false;
         }
         System.out.println("Last return in method");
@@ -188,28 +199,28 @@ public class Main {
 
             currentPlayer = player1;//is the current player
             enemyPlayer = player2;
-           System.out.println("Current player object attributes:");
-           System.out.println("player name: " + currentPlayer.getName());
-           System.out.println("player number: " + currentPlayer.getPlayerNumber());
-           System.out.println("player color: " + currentPlayer.getPlayerColor());
-           System.out.println("player roll 1: " + currentPlayer.getNumbersFromRoll1());
-           System.out.println("player roll 2: " + currentPlayer.getNumbersFromRoll2());
-           System.out.println("player bar number: " + currentPlayer.getBar());
-           System.out.println("player moves left: " + currentPlayer.getMovesLeft());
-           System.out.println("player score: " + currentPlayer.getScore());
-           System.out.println("player your turn: " + currentPlayer.getYourTurn());
-           System.out.println("");
+           //System.out.println("Current player object attributes:");
+           //System.out.println("player name: " + currentPlayer.getName());
+           //System.out.println("player number: " + currentPlayer.getPlayerNumber());
+           //System.out.println("player color: " + currentPlayer.getPlayerColor());
+           //System.out.println("player roll 1: " + currentPlayer.getNumbersFromRoll1());
+           //System.out.println("player roll 2: " + currentPlayer.getNumbersFromRoll2());
+           //System.out.println("player bar number: " + currentPlayer.getBar());
+           //System.out.println("player moves left: " + currentPlayer.getMovesLeft());
+           //System.out.println("player score: " + currentPlayer.getScore());
+           //System.out.println("player your turn: " + currentPlayer.getYourTurn());
+           //System.out.println("");
 
-           System.out.println("Enemy player object attributes:");
-           System.out.println("player name: " + enemyPlayer.getName());
-           System.out.println("player number: " + enemyPlayer.getPlayerNumber());
-           System.out.println("player color: " + enemyPlayer.getPlayerColor());
-           System.out.println("player roll 1: " + enemyPlayer.getNumbersFromRoll1());
-           System.out.println("player roll 2: " + enemyPlayer.getNumbersFromRoll2());
-           System.out.println("player bar: " + enemyPlayer.getBar());
-           System.out.println("player moves left: " + enemyPlayer.getMovesLeft());
-           System.out.println("player score: " + enemyPlayer.getScore());
-           System.out.println("player your turn: " + enemyPlayer.getYourTurn());
+           //System.out.println("Enemy player object attributes:");
+           //System.out.println("player name: " + enemyPlayer.getName());
+           //System.out.println("player number: " + enemyPlayer.getPlayerNumber());
+           //System.out.println("player color: " + enemyPlayer.getPlayerColor());
+           //System.out.println("player roll 1: " + enemyPlayer.getNumbersFromRoll1());
+           // System.out.println("player roll 2: " + enemyPlayer.getNumbersFromRoll2());
+           //System.out.println("player bar: " + enemyPlayer.getBar());
+           //System.out.println("player moves left: " + enemyPlayer.getMovesLeft());
+           //System.out.println("player score: " + enemyPlayer.getScore());
+           //System.out.println("player your turn: " + enemyPlayer.getYourTurn());
 
         }
 
@@ -230,28 +241,28 @@ public class Main {
             currentPlayer = player2;//is the current player
             enemyPlayer = player1;
 
-           System.out.println("Current player object attributes:");
-           System.out.println("player name: " + currentPlayer.getName());
-           System.out.println("player number: " + currentPlayer.getPlayerNumber());
-           System.out.println("player color: " + currentPlayer.getPlayerColor());
-           System.out.println("player roll 1: " + currentPlayer.getNumbersFromRoll1());
-           System.out.println("player roll 2: " + currentPlayer.getNumbersFromRoll2());
-           System.out.println("player bar: " + currentPlayer.getBar());
-           System.out.println("player moves left: " + currentPlayer.getMovesLeft());
-           System.out.println("player score: " + currentPlayer.getScore());
-           System.out.println("player your turn: " + currentPlayer.getYourTurn());
-           System.out.println("");
+           //System.out.println("Current player object attributes:");
+           //System.out.println("player name: " + currentPlayer.getName());
+           //System.out.println("player number: " + currentPlayer.getPlayerNumber());
+           //System.out.println("player color: " + currentPlayer.getPlayerColor());
+           //System.out.println("player roll 1: " + currentPlayer.getNumbersFromRoll1());
+           //System.out.println("player roll 2: " + currentPlayer.getNumbersFromRoll2());
+           //System.out.println("player bar: " + currentPlayer.getBar());
+           //System.out.println("player moves left: " + currentPlayer.getMovesLeft());
+           //System.out.println("player score: " + currentPlayer.getScore());
+           //System.out.println("player your turn: " + currentPlayer.getYourTurn());
+           //System.out.println("");
 
-           System.out.println("Enemy player object attributes:");
-           System.out.println("player name: " + enemyPlayer.getName());
-           System.out.println("player number: " + enemyPlayer.getPlayerNumber());
-           System.out.println("player color: " + enemyPlayer.getPlayerColor());
-           System.out.println("player roll 1: " + enemyPlayer.getNumbersFromRoll1());
-           System.out.println("player roll 2: " + enemyPlayer.getNumbersFromRoll2());
-           System.out.println("player bar: " + enemyPlayer.getBar());
-           System.out.println("player moves left: " + enemyPlayer.getMovesLeft());
-           System.out.println("player score: " + enemyPlayer.getScore());
-           System.out.println("player your turn: " + enemyPlayer.getYourTurn());
+           //System.out.println("Enemy player object attributes:");
+           //System.out.println("player name: " + enemyPlayer.getName());
+           //System.out.println("player number: " + enemyPlayer.getPlayerNumber());
+           //System.out.println("player color: " + enemyPlayer.getPlayerColor());
+           //System.out.println("player roll 1: " + enemyPlayer.getNumbersFromRoll1());
+           //System.out.println("player roll 2: " + enemyPlayer.getNumbersFromRoll2());
+           //System.out.println("player bar: " + enemyPlayer.getBar());
+           //System.out.println("player moves left: " + enemyPlayer.getMovesLeft());
+           //System.out.println("player score: " + enemyPlayer.getScore());
+           //System.out.println("player your turn: " + enemyPlayer.getYourTurn());
         }
         player1.setNumbersFromRoll1(0);//now he has to roll to get numbers again
         player1.setNumbersFromRoll2(0);//now he has to roll to get numbers again
@@ -300,14 +311,14 @@ public static void gameLoop() {
                 }
 
             System.out.println("Roll 1: " + currentPlayer.getNumbersFromRoll1() + ", " + "Roll 2: " + currentPlayer.getNumbersFromRoll2());
-            System.out.println("Which roll are you playing first?");
+            System.out.println("Which roll are you playing?");
             currentRoll = reader.nextInt();
             if((currentRoll == currentPlayer.getNumbersFromRoll1()) || (currentRoll == currentPlayer.getNumbersFromRoll2())) {
                 System.out.println("Checking if move is legal.");
             }
             else{
                 System.out.println("Not allowed");
-                System.out.println("Which roll are you playing first?");
+                System.out.println("Which roll are you playing?");
                 currentRoll = reader.nextInt();
 
             }
@@ -317,7 +328,7 @@ public static void gameLoop() {
             System.out.println(check);
              if (check == true)
                makeMoves();
-               System.out.println("Game status: " + board.gameOver());
+                System.out.println("Game status: " + board.gameOver());
             }
            }
 
