@@ -1,23 +1,44 @@
 package andreas.backgammon;
 
 import java.util.Scanner;
-
+//todo: Finish making moves,
+//todo: fix deck
+//todo: implement hitting
+//todo: bearing off
+//todo: game over condition
 public class Main {
 
+    //So here you are: You've setup the deck, had your initial roll, and you hit the game loop.
+    //You've thrown your dice, determined your moves, chosen your rock, you've check if it can move,
+    // you've checked if the destination is reachable, and all of that worked out. Now it's time to interact with the
+    //board and move the rocks.
     public static void makeMoves(){
 
-        board.removeStone(currentRock, currentPlayer.getPlayerColor());
-        board.addStone(target, currentPlayer.getPlayerColor(), enemyPlayer, currentPlayer);
-        System.out.println(board.deck.toString());
-        System.out.println(board.colors.toString());
-        currentPlayer.setMoves(currentPlayer.getMovesLeft() - 1);
-        if(currentRoll == currentPlayer.getNumbersFromRoll1() && currentPlayer.getMovesLeft() < 3){
-            currentPlayer.setNumbersFromRoll1(0);
-            System.out.println("Roll 1 "+currentPlayer.getNumbersFromRoll1());
-        }
-        if(currentRoll == currentPlayer.getNumbersFromRoll2() && currentPlayer.getMovesLeft() < 3){
-            currentPlayer.setNumbersFromRoll2(0);
-           System.out.println("Roll 2 "+currentPlayer.getNumbersFromRoll2());
+        board.removeStone(currentRock, currentPlayer.getPlayerColor());//You move your stone, and imagine a pause: You move, therefore removing from one place
+        board.addStone(target, currentPlayer.getPlayerColor(), enemyPlayer, currentPlayer);//and adding to another.
+        System.out.println(board.deck.toString());//The stones change positions on the deck and its visible
+        System.out.println(board.colors.toString());//The colors of the stones follow them too, and they are visible.
+        currentPlayer.setMoves(currentPlayer.getMovesLeft() - 1);//You've officially done your move, so you're a move down.
+
+        //Think of it like this: When you end up with two moves, each move you make costs you a number from your dice, in that - if you roll 5 3 and you play 3 you can't play it again.
+        if((twoMoves = true) &&(currentPlayer.getMovesLeft() == 0))//If you've established that you have two moves in the begginning of the round, played your move and the amount of numbers left is none
+            twoMoves = false;//you no longer have two moves.
+
+        else if((fourMoves = true) &&(currentPlayer.getMovesLeft() == 0))//If you've established that you have four moves in the begginning of the round, played your move and the amount of numbers left is none
+            fourMoves = false;//you no longer have four moves.
+
+        else//Well, you've broken it somehow.
+            System.out.println("Something's wrong in makeMoves(), if-else if-else statement");
+
+        if(twoMoves) {//If your moves are still two and not zero
+            if (currentRoll == currentPlayer.getNumbersFromRoll1()) {
+                currentPlayer.setNumbersFromRoll1(0);
+                System.out.println("Roll 1 " + currentPlayer.getNumbersFromRoll1());
+            }
+            if (currentRoll == currentPlayer.getNumbersFromRoll2()) {
+                currentPlayer.setNumbersFromRoll2(0);
+                System.out.println("Roll 2 " + currentPlayer.getNumbersFromRoll2());
+            }
         }
         System.out.println("Moves left for "+ currentPlayer.getName() + ": "+currentPlayer.getMovesLeft());
         //if player has ran out of moves, check who goes next
@@ -70,135 +91,155 @@ public class Main {
     public static String name2;
     public static int currentRock;
     public static int currentRoll;
-    
+    public static boolean twoMoves;
+    public static boolean fourMoves;
     public static Scanner reader;
-
+    public static boolean whiteRocksOnBar = false;
+    public static boolean blackRocksOnBar = false;
+    public static boolean hit = false;
     //--------------------------------------------------------------------
 
+    //They setup the board.
     public static void setupBoard(){
-        board.setupBoard();//setup the deck
+        board.setupBoard();//They setup the board and put the rocks in their places while sipping on their frape.
     }
-
+    //In this episode of Roadkill, we check whether the player tends to forget his color. We check whether
+    //the board he is trying to move can actually be moved. That is, if the rock he selected has the same color
+    //as the color he's playing.
     public static boolean isCurrentRockAllowed(backgammonPlayer currentPlayer, int currentRock){
-        String currentPlayerColor = currentPlayer.getPlayerColor();//return current player's color
-        String desiredRockColor = board.colors.get(currentRock);//get color
-        System.out.println("current player color: "+currentPlayerColor);
-        System.out.println("desired rock color: "+desiredRockColor);
 
-        if(currentPlayerColor == desiredRockColor){//if there's more than one stones and the colors permit moving
+        String currentPlayerColor = currentPlayer.getPlayerColor();//It's your turn now. You recall the color you have been assigned.
+        String desiredRockColor = board.colors.get(currentRock);//You check whether the color of the rock you are trying to move.
+        System.out.println("current player color: "+currentPlayerColor);//Your brain outputs this,
+        System.out.println("desired rock color: "+desiredRockColor);//and this.
+
+        if(currentPlayerColor == desiredRockColor){//You're currently thinking; If my color matches the color of the rock I want to move,
             System.out.println("Ok, rock allowed to move");
-            return true;
+            return true;//it can be moved.
         }
         System.out.println("Rock not allowed to move");
-        return false;
+        return false;//It can't be moved otherwise.
     }
 
 
     public static boolean isCurrentMoveLegit(backgammonPlayer currentPlayer, int currentRock, int currentRoll) {
+    //Now, you check whether the move you chose is legit.
 
-
-        //if current player has rocks on his bar and is white
+        //You recall that you have a color. You think: If your color is white, but you have rocks on the bar
         if ((currentPlayer.playerColor == "w") && (board.thereExistRocksOnBar(currentPlayer.getPlayerColor())) == 1) {
             System.out.println("current player has rocks on his bar and is white");
-            return false;
+            whiteRocksOnBar = true;
+            return false;//You can't move.
         }
-        //if current player has rocks on his bar and is black
+        //OR, if your color is black, but you have rocks on the bar,
         else if ((currentPlayer.playerColor == "b") && (board.thereExistRocksOnBar(currentPlayer.getPlayerColor())) == 2) {
             System.out.println("current player has rocks on his bar and is black");
-            return false;
-        }
-        //calculate the target vector if white player
-        if (currentPlayer.playerColor == "w"){
-            target = currentRock + currentRoll;
-        }
-        //calculate the target vector if black player
-        if (currentPlayer.playerColor == "b"){
-            target = currentRock - currentRoll;//going the other way around
+            blackRocksOnBar = true;
+            return false;//you still can't move.
         }
 
-        int targetVector = board.deck.get(target);//get status of target vector
-        String targetVectorC = board.colors.get(target);//get color of target vector
 
-        //check if violates the boudaries
-        if(target > 23 || target < 0){
+        //You've established that there's no rocks on the bar, so all is good. Now, you check where you can move according to the roll you chose to play.
+        if (currentPlayer.playerColor == "w"){//If you are moving the white rocks,
+            target = currentRock + currentRoll;//you are moving right.
+        }
+        //Then, it hits you. If you're not moving white rocks,
+        else if (currentPlayer.playerColor == "b"){//if you're moving black rocks,
+            target = currentRock - currentRoll;//then you're moving to the left.
+        }
+
+        int targetVector = board.deck.get(target);//You now look at the vector and the rocks on it,
+        String targetVectorC = board.colors.get(target);//and you also look at the colors
+
+        //For obvious reasons, you cannot move beyond the deck.
+        if(target > 23 || target < 0){//If your current position and your roll go over the number of vectors,
             System.out.println("violates board's boundaries");
 
-            return false;//can't go out of boundaries
+            return false;//you can't move that rock.
         }
 
-        if(targetVector == 0){
+        //Interesting. So far, all is good - you're not moving in a silly way, or moving when there's rocks on the bar.
+        //You look at the vectors themselves now, trying to figure out whether you can actually land and hit or just land.
+
+        if(targetVector == 0){//If the vector you want to move to is empty,
             System.out.println("Target vector empty, proceed");
-            return true;
+            return true;//by all means, go for it!
         }
-        //target has one rock of current player's color
+        //OR, if the vector you want to move to has one rock of your color,
         else if((targetVector == 1)&&(targetVectorC.equals(currentPlayer.getPlayerColor()))){
             System.out.println("target has one rock of current player's color, proceed");
-
-            return true;
+            return true;//lucky you, close it up!
         }
-        //target has one rock of enemy player's color
+        //OR, the vector you want to move to has one rock of your opponent's color,
         else if((targetVector == 1)&&(targetVectorC.equals(enemyPlayer.getPlayerColor()))){
             System.out.println("target has one rock of enemy's color, proceed to hit and land");
-            boolean hit = true;
-            return true;
+            hit = true;//hit him!
+            return true;//Yes, you can move there, all is good.
         }
-        //target has more than one stones of enemy color
-        if((targetVector > 1)&&(targetVectorC.equals(enemyPlayer.getPlayerColor()))){
+        //OR, the vector you want to move to, has more than one rocks of your enemy's color,
+        else if((targetVector > 1)&&(targetVectorC.equals(enemyPlayer.getPlayerColor()))){
             System.out.println("More than one stones of enemy color, move not allowed");
-
-            return false;
+            return false;//tough luck, can't move there.
         }
-        System.out.println("Last return in method");
-        return false;//return false dy default because the criteria isn't satisfied
+        else{
+            //Congratulations, you have somehow managed to break the universe. YOU ARE KING!
+            System.out.println("Soemthing is wrong at the isCurrentMoveLegit method");
+            return false;//Aaaand you return false cause it's somehow broken.
+        }
     }
 
 
 
     public static void initialGame(){
-        currentPlayer = player1;//p1 is the current player
-        dice.rollDice();//player 1 throws their dice
-        System.out.println("Dice roll for " + player1.getName() + ":" + dice.getDiceRoll1());
-        currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//player 1 has rolled number x
-        currentPlayer = player2;
-        dice.rollDice();//player 2 throws their dice
-        System.out.println("Dice roll for " + player2.getName() + ":" + dice.getDiceRoll2());
-        currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//player 2 has rolled number y
+        //Welcome to the initial piece of the game.
 
-        //if numbers are the same/*
-    if (player1.getNumbersFromRoll1() == player2.getNumbersFromRoll2()) {
+        currentPlayer = player1;//Someone has to go first.
+        dice.rollDice();//The die is rolled,
+        System.out.println("Dice roll for " + player1.getName() + ":" + dice.getDiceRoll1());
+        currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//and the first player registers the first number.
+        currentPlayer = player2;//Then, the second player picks up the die
+        dice.rollDice();//and throws it.
+        System.out.println("Dice roll for " + player2.getName() + ":" + dice.getDiceRoll2());
+        currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//They then register the number they got.
+
+        //Now you look at your opponent and ask him, "what number did you roll?"
+    if (player1.getNumbersFromRoll1() == player2.getNumbersFromRoll2()) {//He then tells you, and you tell him, and you check. If they are equal,
 
             System.out.println("");
             System.out.println("Same dice, rerolling.");
             System.out.println("");}
-
-            //while they are the same
-            while (player1.getNumbersFromRoll1() == player2.getNumbersFromRoll2()) {//while they are the same
-
-                dice.rollDice();//player1 throws again
+            //You reroll cause you can't both start first.
+            //it goes on for a while, and you keep rolling the same numbers.
+            while (player1.getNumbersFromRoll1() == player2.getNumbersFromRoll2()) {//While they are the same...
+                currentPlayer = player1;//Someone has to go first.
+                dice.rollDice();//The first player throws again
                 System.out.println("");
                 System.out.println("Dice roll for " + player1.getName()+ ":" + dice.getDiceRoll1());
-                player1.setNumbersFromRoll1(dice.getDiceRoll1());//player 1 re-rolled f
+                currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//and registers the number he rolled.
 
-
-                dice.rollDice();//player 2 throws again
+                currentPlayer = player2;//Then, it's your opponent's turn.
+                dice.rollDice();//They throw again,
                 System.out.println("Dice roll for " + player2.getName() + ":" + dice.getDiceRoll2());
-                player2.setNumbersFromRoll2(dice.getDiceRoll2());//player 2 re-rolled g
+                currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//and register the number. They compare after this.
 
             }
 
-       if (player1.getNumbersFromRoll1() > player2.getNumbersFromRoll2()) {//if player's one dice has a larger number than player 2
-            player1.setPlayerNumber(1);//set player1 as the first player
-            player1.setYourTurn(1);//it's his turn, so set that too
-            player1.setPlayerColor("w");//he's playing with white stones
-            player1.setBar(24);//his bar is number 24
+        //Finally, no doubles.
 
-            player2.setPlayerNumber(2);//player 2 gets number 2
-            player2.setYourTurn(0);//not his turn
-            player2.setPlayerColor("b");//to xroma s en aspro men me rotiseis giati
-            player2.setBar(25);
+       if (player1.getNumbersFromRoll1() > player2.getNumbersFromRoll2()) {//If your die has a larger number than your opponent's,
+            player1.setPlayerNumber(1);//lucky you, you are player 1!
+            player1.setYourTurn(1);//It's obviously your turn, so you establish that,
+            player1.setPlayerColor("w");//along with the fact that you're moving white rocks.
+            player1.setBar(24);//Lastly, your bar is number 24.
 
-            currentPlayer = player1;//is the current player
-            enemyPlayer = player2;
+            player2.setPlayerNumber(2);//Unlucky him, he's player 2
+            player2.setYourTurn(0);//It's not his turn, and you let him know.
+            player2.setPlayerColor("b");//You also let him know that he is moving black rocks.
+            player2.setBar(25);//Lastly, his bar is number 25.
+
+            currentPlayer = player1;//You are the current player,
+            enemyPlayer = player2;//and your mate is your enemy player.
+
            //System.out.println("Current player object attributes:");
            //System.out.println("player name: " + currentPlayer.getName());
            //System.out.println("player number: " + currentPlayer.getPlayerNumber());
@@ -225,21 +266,21 @@ public class Main {
         }
 
 
-       else{
-            player2.setPlayerNumber(1);//set player2 as the first player
-            player2.setYourTurn(1);//it's his turn, so set that too
-            player2.setPlayerColor("w");//he's playing with white stones
-            player2.setBar(24);//his bar is number 24
+       else{//OR, you snap out of that and you realize that his number is larger than yours in which case,
+            player2.setPlayerNumber(1);//he is player 1,
+            player2.setYourTurn(1);//and it's his turn, you establish that.
+            player2.setPlayerColor("w");//You let him know that he's playing with white stones,
+            player2.setBar(24);//and his bar is number 24.
 
 
 
-            player1.setPlayerNumber(2);//player 1 gets number 2
-            player1.setYourTurn(0);//not his turn
-            player1.setPlayerColor("b");//to xroma s en aspro men me rotiseis giati
-            player1.setBar(25);
+            player1.setPlayerNumber(2);//You are playing second,
+            player1.setYourTurn(0);//and so far it's not your turn.
+            player1.setPlayerColor("b");//You are playing with black rocks,
+            player1.setBar(25);//and your bar is number 25.
 
-            currentPlayer = player2;//is the current player
-            enemyPlayer = player1;
+            currentPlayer = player2;//Your opponent is the current player
+            enemyPlayer = player1;//and you are the enemy player.
 
            //System.out.println("Current player object attributes:");
            //System.out.println("player name: " + currentPlayer.getName());
@@ -274,110 +315,107 @@ public static void gameLoop() {
 
         Scanner reader = new Scanner(System.in);
 
-        while ((board.gameOver() == 0)&&(currentPlayer.yourTurn == 1)) {
-            if(currentPlayer.getMovesLeft() == 0){
-                dice.rollDice();//throw dice
-                System.out.println("Die 1: " + dice.getDiceRoll1()+", "+ "Die 2: "+ dice.getDiceRoll2());
-                currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());
-                currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());
+        while ((board.gameOver() == 0)&&(currentPlayer.yourTurn == 1)) {//If the game hasn't ended and it's still your turn,
+            if(currentPlayer.getMovesLeft() == 0){//if you have no turns, you haven't rolled your dice yet,
+                dice.rollDice();//you throw the dice.
+                System.out.println("Die 1: " + dice.getDiceRoll1()+", "+ "Die 2: "+ dice.getDiceRoll2());//You look at your dice and register the numbers in your head:
+                currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//You look and register number 1
+                currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//and you look and register number 2
 
+                //Now comes the part where you recall from your head how many moves you're playing according to the dice numbers.
 
-                if (currentPlayer.numbersFromRoll1 == currentPlayer.numbersFromRoll2) {//same dice -> 4 moves
-                    currentPlayer.setMoves(4);
-                    currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//1st number
-                    currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//second number
-                    System.out.println("You get 4 moves");
+                if (currentPlayer.numbersFromRoll1 == currentPlayer.numbersFromRoll2) {// You look at the dice, and the numbers are the same
+                    currentPlayer.setMoves(4);//Lucky you, you get doubles.
+                    currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//You remember the first number,
+                    currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//you remember the second number
+                    fourMoves = true;//You realize you have 4 moves,
+                    System.out.println("You get 4 moves");// and you keep in mind the numbers cause those are your 4 steps of the numbers you just rolled.
 
-                }
-                else if (currentPlayer.numbersFromRoll1 != currentPlayer.numbersFromRoll2) {//different dice -> 2 moves
-                    currentPlayer.setMoves(2);
-                    currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//1st number
-                    currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//second number
-                    System.out.println("You get 2 moves");
-                }
+                }//Then, your thought shifts onto the next scenario.
+                else if (currentPlayer.numbersFromRoll1 != currentPlayer.numbersFromRoll2) {//You look at the numbers, and they are different.
+                    currentPlayer.setMoves(2);//Two moves, sorry.
+                    currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//You register the first number, that's move one,
+                    currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//and you register the second number, that'll be move two.
+                    twoMoves = true;//You realize you have two moves,
+                    System.out.println("You get 2 moves");// you mutter it for the record and you prepare to play.
+
+                }//Now that you've got your number of moves nad actual moves,  you start moving the stones around.
             }
-            System.out.print(currentPlayer.getName()+", which rock would you like to move?");
-            currentRock = reader.nextInt();
-            boolean check = isCurrentRockAllowed(currentPlayer, currentRock);//this method only checks if the rock selected can be moved, doesn't check destination
-               while (check == false) {
-                    System.out.println("Invalid entry, the stone you are trying to move either isn't there or isn't yours");
-                    System.out.print("which rock would you like to move?");
-                    currentRock = reader.nextInt();
-                    check = isCurrentRockAllowed(currentPlayer, currentRock);
-                    if(check == true){
-                        System.out.println("Ok, rock allowed");
-                        break;
+            System.out.print(currentPlayer.getName()+", which rock would you like to move?");//You think, which one?
+            currentRock = reader.nextInt();//Then you pick a number.
+            boolean check = isCurrentRockAllowed(currentPlayer, currentRock);//You look around the deck, to see whether you can move or not.
+               while (check == false) {// While you can't find a good destination for your stone...
+                    System.out.println("Invalid entry, the stone you are trying to move either isn't there or isn't yours");//You realize you are moving the wrong rock, or a rock that doesn't exist.
+                    System.out.print("which rock would you like to move?");//You think again.
+                    currentRock = reader.nextInt();//You then decide your next move.
+                    check = isCurrentRockAllowed(currentPlayer, currentRock);//You run a check on your move.
+                    if(check == true){//You realize it. This might be correct. If it's really true,
+                        System.out.println("Ok, rock allowed");//You think: Yes, I can move it there.
+                        break;//Then, you snap out of it - Congratulations, you have found a move.
                     }
                 }
 
-            System.out.println("Roll 1: " + currentPlayer.getNumbersFromRoll1() + ", " + "Roll 2: " + currentPlayer.getNumbersFromRoll2());
-            System.out.println("Which roll are you playing?");
-            currentRoll = reader.nextInt();
-            if((currentRoll == currentPlayer.getNumbersFromRoll1()) || (currentRoll == currentPlayer.getNumbersFromRoll2())) {
-                System.out.println("Checking if move is legal.");
+            System.out.println("Roll 1: " + currentPlayer.getNumbersFromRoll1() + ", " + "Roll 2: " + currentPlayer.getNumbersFromRoll2());//Here comes the move. You recall the numbers you have.
+            System.out.println("Which roll are you playing?");//You think: Which move should go first?
+            currentRoll = reader.nextInt();//You decide you will use that move.
+            if((currentRoll == currentPlayer.getNumbersFromRoll1()) || (currentRoll == currentPlayer.getNumbersFromRoll2())) {//To be able to move, your move number must equal the result on the equivalent dice.
+                System.out.println("Checking if move is legal.");//You then check if the move its legit
             }
-            else{
-                System.out.println("Not allowed");
-                System.out.println("Which roll are you playing?");
-                currentRoll = reader.nextInt();
+            else{//OR, then you realize that it isn't. Then it hits you - you confused your number and moved it in the wrong way, and disobeyed your dice. Sorry, can't move.
+                System.out.println("Not allowed");//You realize it,
+                System.out.println("Which roll are you playing?");//and you think again.
+                currentRoll = reader.nextInt();//You decide again.
 
             }
 
-            //check legality of move to be performed
-            check = isCurrentMoveLegit(currentPlayer, currentRock, currentRoll);
-            System.out.println(check);
-             if (check == true)
-               makeMoves();
-                System.out.println("Game status: " + board.gameOver());
+
+            check = isCurrentMoveLegit(currentPlayer, currentRock, currentRoll);//You check whether your move is legit.
+            System.out.println(""+check);//You then mutter out the result.
+             if (check == true)//Knowing the result, if it's true
+               makeMoves();//you proceed to make your move
+                System.out.println("Game status: " + board.gameOver());//and you then check to see whether the game has ended.
             }
            }
 
-
-
-
-
     public static void main(String args[]) {
 
+        reader = new Scanner(System.in);//You realize you need to have an input for your head to get info from.
+        currentPlayer = new backgammonPlayer();//You realize you're a player (stop it, you :D), and as such a player has some attributes.
+        enemyPlayer = new backgammonPlayer();//You realize your opponent is also a player. And that he has attributes too.
+        player1 = new backgammonPlayer();//Somebody is going to be player 1.
+        player2 = new backgammonPlayer();//Somebody is going to be player 2.
+        board = new backgammonBoard();//there's going to be a deck between you on the table, with rocks
+        dice = new backgammonDice();//and a pair of dice.
 
-        reader = new Scanner(System.in);
-        currentPlayer = new backgammonPlayer();
-        enemyPlayer = new backgammonPlayer();
-        player1 = new backgammonPlayer();//instance of player 1
-        player2 = new backgammonPlayer();//instance of player 2
-        board = new backgammonBoard();//instance of deck
-        dice = new backgammonDice();//instance of dice 1
-        dice = new backgammonDice();//instance of dice 2
+        //Now, with that in mind - you and your opponent start communicating.
 
-        System.out.print("Hello, welcome to awe-gammon! How many games do you wish to play?");
-        noGames = reader.nextInt();
-        while(noGames <1) {//checking for number of games, if neg then ask again
-            System.out.println("Invalid number of games, must be > 0");
-            noGames = reader.nextInt();
+
+        System.out.print("Hello, welcome to awe-gammon! How many games do you wish to play?"); //You ask him, how many games he's feeling like playing.
+        noGames = reader.nextInt();//You decide you're going to play that many games.
+        while(noGames <1) {//while you guys are having a dumb argument as to why -2 games is somehow an appropriate number of games
+            System.out.println("Invalid number of games, must be > 0");//The rules smack you on the face and you remember: Can't have a negative number of games, or zero games. It doesn't work that way.
+            noGames = reader.nextInt(); //You decide another number of games.
         }
 
-        Scanner input = new Scanner(System.in);
-        System.out.print("What is your name?");
-        name1 = input.nextLine();
-        player1.setName(name1);
+        Scanner input = new Scanner(System.in);//The computer needs a way of getting your names. You then give it one.
+        System.out.print("What is your name?");//It then asks for the first name.
+        name1 = input.nextLine();//One of you types it in.
+        player1.setName(name1);//He remembers that one of his attributes as a player is a name, and now he has one.
 
 
-        System.out.print("And yours?");
-        name2 = input.nextLine();
-        player2.setName(name2);
+        System.out.print("And yours?");//The computer calmly asks for the second player.
+        name2 = input.nextLine();//The next player types their name in.
+        player2.setName(name2);//The other player also realizes he has a name as a player, and now this name he set will be his.
 
-        System.out.println("Number of games: "+noGames);
-        System.out.println("Game starting...");
-        System.out.println("");
+        System.out.println("Number of games: "+noGames);//The computer then states the number of games
+        System.out.println("Game starting...");//and then lets the players know that the game is starting.
+        System.out.println("");//It wants to look neat so it prints an empty line too to make the output legible.
 
-        setupBoard();//setup board
-        initialGame();//initial moves of the game to determine who goes first
-        gameLoop();
+        setupBoard();//It sets up the board for them,
+        initialGame();//and then they roll dice to decide who goes first.
+        gameLoop();//After everything is done, the game begins...
 
         }
-
-
-
-
     }
 
 
