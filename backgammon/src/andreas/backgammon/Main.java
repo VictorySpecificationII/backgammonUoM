@@ -20,29 +20,23 @@ public class Main {
         System.out.println(board.colors.toString());//The colors of the stones follow them too, and they are visible.
         currentPlayer.setMoves(currentPlayer.getMovesLeft() - 1);//You've officially done your move, so you're a move down.
 
-        //Think of it like this: When you end up with two moves, each move you make costs you a number from your dice, in that - if you roll 5 3 and you play 3 you can't play it again.
-        if((twoMoves = true) &&(currentPlayer.getMovesLeft() == 0))//If you've established that you have two moves in the begginning of the round, played your move and the amount of numbers left is none
-            twoMoves = false;//you no longer have two moves.
-
-        else if((fourMoves = true) &&(currentPlayer.getMovesLeft() == 0))//If you've established that you have four moves in the begginning of the round, played your move and the amount of numbers left is none
-            fourMoves = false;//you no longer have four moves.
-
-        else//Well, you've broken it somehow.
-            System.out.println("Something's wrong in makeMoves(), if-else if-else statement");
-
-        if(twoMoves) {//If your moves are still two and not zero
-            if (currentRoll == currentPlayer.getNumbersFromRoll1()) {
-                currentPlayer.setNumbersFromRoll1(0);
-                System.out.println("Roll 1 " + currentPlayer.getNumbersFromRoll1());
+        if(twoMoves) {//If your moves are still two
+            if (currentRoll == currentPlayer.getNumbersFromRoll1()) {//You check whether your current roll matches either dice. Now you check the first one. If it does,
+                currentPlayer.setNumbersFromRoll1(0);//You set that to zero, because you are not allowed to play the same number twice unless it's doubles.
+                System.out.println("Roll 1 " + currentPlayer.getNumbersFromRoll1());//You then mutter it out.
             }
-            if (currentRoll == currentPlayer.getNumbersFromRoll2()) {
-                currentPlayer.setNumbersFromRoll2(0);
-                System.out.println("Roll 2 " + currentPlayer.getNumbersFromRoll2());
+            if (currentRoll == currentPlayer.getNumbersFromRoll2()) {//If it doesn't match the first dice, if it matches the second,
+                currentPlayer.setNumbersFromRoll2(0);//You set your second number to zero, because you can't play that twice either and besides, you by this point have one moves left.
+                System.out.println("Roll 2 " + currentPlayer.getNumbersFromRoll2());//You mutter it out.
             }
         }
+
+
         System.out.println("Moves left for "+ currentPlayer.getName() + ": "+currentPlayer.getMovesLeft());
         //if player has ran out of moves, check who goes next
         if(currentPlayer.getMovesLeft() == 0){
+            twoMoves = false;
+            fourMoves = false;
             if(currentPlayer.getPlayerNumber() == 1){
                 System.out.println("first if");
                 //set your turn of current player to 0
@@ -169,6 +163,11 @@ public class Main {
         else if((targetVector == 1)&&(targetVectorC.equals(currentPlayer.getPlayerColor()))){
             System.out.println("target has one rock of current player's color, proceed");
             return true;//lucky you, close it up!
+        }
+        //OR, if the vector you want to move to has more than 1 rocks of your color,
+        else if((targetVector > 1)&&(targetVectorC.equals(currentPlayer.getPlayerColor()))){
+            System.out.println("target has more than one rocks of current player's color, proceed");
+            return true;//Stack them up!
         }
         //OR, the vector you want to move to has one rock of your opponent's color,
         else if((targetVector == 1)&&(targetVectorC.equals(enemyPlayer.getPlayerColor()))){
