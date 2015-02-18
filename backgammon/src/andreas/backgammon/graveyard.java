@@ -46,4 +46,85 @@ public class graveyard {/*
 }
 
 
-/*    */
+/* *
+
+    * */
+
+
+//====================================================================================================================
+
+/*
+        int i;
+        int j;
+        String color;
+        int howMany;
+
+        for(i = 0; i>12; i++){
+            color = board.colors.get(i);
+            howMany = board.deck.get(i);
+            System.out.println(color);
+            System.out.println(howMany);
+            if(howMany == 1){
+                if (color.equals("w")) {
+                    sb.append("---x---\n");
+                }
+                else if (color.equals("b")) {
+                    sb.append("   o   \n");
+                }
+                else if (color.equals("n")) {
+                    sb.append("       \n");
+                }
+                else
+                    System.out.println("Soemthing's off at CLI1");
+            }
+            else if(howMany > 1){
+                if (color.equals("w")) {
+                    for(int temp = 0; temp < howMany; temp++)
+                        sb.append("   x   \n");
+                }
+                else if (color.equals("b")) {
+                    for(int temp = 0; temp < howMany; temp++)
+                        sb.append("   o   \n");
+                }
+                else if (color.equals("n")) {
+                    sb.append("       \n");
+                }
+                else
+                    System.out.println("Soemthing's off at CLI2");
+            }
+        }
+
+        for(i = 13; i>23; i++){
+            color = board.colors.get(i);
+            howMany = board.deck.get(i);
+            if(howMany == 1){
+                if (color.equals("w")) {
+                    sb.append("   x   \n");
+                }
+                else if (color.equals("b")) {
+                    sb.append("   o   \n");
+                }
+                else if (color.equals("n")) {
+                    sb.append("       \n");
+                }
+                else
+                    System.out.println("Soemthing's off at CLI3");
+            }
+            else if(howMany > 1){
+                if (color.equals("w")) {
+                    for(int temp = 0; temp < howMany; temp++)
+                        sb.append("   x   \n");
+                }
+                else if (color.equals("b")) {
+                    for(int temp = 0; temp < howMany; temp++)
+                        sb.append("   o   \n");
+                }
+                else if (color.equals("n")) {
+                    sb.append("       \n");
+                }
+                else
+                    System.out.println("Soemthing's off at CLI4");
+            }
+        }
+*
+* */

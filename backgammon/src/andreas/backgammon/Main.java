@@ -2,13 +2,18 @@ package andreas.backgammon;
 
 import java.util.*;
 //todo: Finish making moves ✓
-//todo: fix deck*
-//todo: implement hitting*
-//todo: implement bearing off
-//todo: game over condition
-
+//todo: fix deck✓
+//todo: implement hitting, partly works (03/02/15)
+//todo: implement bearing off -> partly done, 2 methods: possible, actual act - need to implement into gameLoop function
+//todo: game over condition✓;
+//todo: THEN LOGIC IS FINISHED,
+//todo: GUI
+//todo: SERVER
+//todo: AI
 //*BUG: When hitting, eg state 1: vector 12-> 1, w. Hit from 14, turns to this: vector 12 -> 2, w - check board class for it
+//BUG FIX*:Fixed above bug, definitely fixed, tested at 1551 on 05/12/14
 //BUG FIX: Fixed bug where they wouldn't stack up past 5 - definitely fixed, tested at 0427 on 13/11/14
+
 public class Main {
     //Global variables section
     //--------------------------------------------------------------------
@@ -31,7 +36,8 @@ public class Main {
     public static Scanner reader;
     public static boolean whiteRocksOnBar = false;
     public static boolean blackRocksOnBar = false;
-    public static boolean hit = false;
+    public static boolean bearOff = false;
+    //public static boolean hit = false;
     //--------------------------------------------------------------------
     //So here you are: You've setup the deck, had your initial roll, and you hit the game loop.
     //You've thrown your dice, determined your moves, chosen your rock, you've check if it can move,
@@ -174,7 +180,7 @@ public class Main {
         //OR, the vector you want to move to has one rock of your opponent's color,
         else if((targetVector == 1)&&(targetVectorC.equals(enemyPlayer.getPlayerColor()))){
             System.out.println("target has one rock of enemy's color, proceed to hit and land");
-            hit = true;//hit him!
+            //hit = true;//hit him!
             return true;//Yes, you can move there, all is good.
         }
         //OR, the vector you want to move to, has more than one rocks of your enemy's color,
@@ -239,28 +245,28 @@ public class Main {
             currentPlayer = player1;//You are the current player,
             enemyPlayer = player2;//and your mate is your enemy player.
 
-           //System.out.println("Current player object attributes:");
-           //System.out.println("player name: " + currentPlayer.getName());
-           //System.out.println("player number: " + currentPlayer.getPlayerNumber());
-           //System.out.println("player color: " + currentPlayer.getPlayerColor());
-           //System.out.println("player roll 1: " + currentPlayer.getNumbersFromRoll1());
-           //System.out.println("player roll 2: " + currentPlayer.getNumbersFromRoll2());
-           //System.out.println("player bar number: " + currentPlayer.getBar());
-           //System.out.println("player moves left: " + currentPlayer.getMovesLeft());
-           //System.out.println("player score: " + currentPlayer.getScore());
-           //System.out.println("player your turn: " + currentPlayer.getYourTurn());
-           //System.out.println("");
+           System.out.println("Current player object attributes:");
+           System.out.println("player name: " + currentPlayer.getName());
+           System.out.println("player number: " + currentPlayer.getPlayerNumber());
+           System.out.println("player color: " + currentPlayer.getPlayerColor());
+           System.out.println("player roll 1: " + currentPlayer.getNumbersFromRoll1());
+           System.out.println("player roll 2: " + currentPlayer.getNumbersFromRoll2());
+           System.out.println("player bar number: " + currentPlayer.getBar());
+           System.out.println("player moves left: " + currentPlayer.getMovesLeft());
+           System.out.println("player score: " + currentPlayer.getScore());
+           System.out.println("player your turn: " + currentPlayer.getYourTurn());
+           System.out.println("");
 
-           //System.out.println("Enemy player object attributes:");
-           //System.out.println("player name: " + enemyPlayer.getName());
-           //System.out.println("player number: " + enemyPlayer.getPlayerNumber());
-           //System.out.println("player color: " + enemyPlayer.getPlayerColor());
-           //System.out.println("player roll 1: " + enemyPlayer.getNumbersFromRoll1());
-           // System.out.println("player roll 2: " + enemyPlayer.getNumbersFromRoll2());
-           //System.out.println("player bar: " + enemyPlayer.getBar());
-           //System.out.println("player moves left: " + enemyPlayer.getMovesLeft());
-           //System.out.println("player score: " + enemyPlayer.getScore());
-           //System.out.println("player your turn: " + enemyPlayer.getYourTurn());
+           System.out.println("Enemy player object attributes:");
+           System.out.println("player name: " + enemyPlayer.getName());
+           System.out.println("player number: " + enemyPlayer.getPlayerNumber());
+           System.out.println("player color: " + enemyPlayer.getPlayerColor());
+           System.out.println("player roll 1: " + enemyPlayer.getNumbersFromRoll1());
+           System.out.println("player roll 2: " + enemyPlayer.getNumbersFromRoll2());
+           System.out.println("player bar: " + enemyPlayer.getBar());
+           System.out.println("player moves left: " + enemyPlayer.getMovesLeft());
+           System.out.println("player score: " + enemyPlayer.getScore());
+           System.out.println("player your turn: " + enemyPlayer.getYourTurn());
 
         }
 
@@ -281,117 +287,325 @@ public class Main {
             currentPlayer = player2;//Your opponent is the current player
             enemyPlayer = player1;//and you are the enemy player.
 
-           //System.out.println("Current player object attributes:");
-           //System.out.println("player name: " + currentPlayer.getName());
-           //System.out.println("player number: " + currentPlayer.getPlayerNumber());
-           //System.out.println("player color: " + currentPlayer.getPlayerColor());
-           //System.out.println("player roll 1: " + currentPlayer.getNumbersFromRoll1());
-           //System.out.println("player roll 2: " + currentPlayer.getNumbersFromRoll2());
-           //System.out.println("player bar: " + currentPlayer.getBar());
-           //System.out.println("player moves left: " + currentPlayer.getMovesLeft());
-           //System.out.println("player score: " + currentPlayer.getScore());
-           //System.out.println("player your turn: " + currentPlayer.getYourTurn());
-           //System.out.println("");
+           System.out.println("Current player object attributes:");
+           System.out.println("player name: " + currentPlayer.getName());
+           System.out.println("player number: " + currentPlayer.getPlayerNumber());
+           System.out.println("player color: " + currentPlayer.getPlayerColor());
+           System.out.println("player roll 1: " + currentPlayer.getNumbersFromRoll1());
+           System.out.println("player roll 2: " + currentPlayer.getNumbersFromRoll2());
+           System.out.println("player bar: " + currentPlayer.getBar());
+           System.out.println("player moves left: " + currentPlayer.getMovesLeft());
+           System.out.println("player score: " + currentPlayer.getScore());
+           System.out.println("player your turn: " + currentPlayer.getYourTurn());
+           System.out.println("");
 
-           //System.out.println("Enemy player object attributes:");
-           //System.out.println("player name: " + enemyPlayer.getName());
-           //System.out.println("player number: " + enemyPlayer.getPlayerNumber());
-           //System.out.println("player color: " + enemyPlayer.getPlayerColor());
-           //System.out.println("player roll 1: " + enemyPlayer.getNumbersFromRoll1());
-           //System.out.println("player roll 2: " + enemyPlayer.getNumbersFromRoll2());
-           //System.out.println("player bar: " + enemyPlayer.getBar());
-           //System.out.println("player moves left: " + enemyPlayer.getMovesLeft());
-           //System.out.println("player score: " + enemyPlayer.getScore());
-           //System.out.println("player your turn: " + enemyPlayer.getYourTurn());
+           System.out.println("Enemy player object attributes:");
+           System.out.println("player name: " + enemyPlayer.getName());
+           System.out.println("player number: " + enemyPlayer.getPlayerNumber());
+           System.out.println("player color: " + enemyPlayer.getPlayerColor());
+           System.out.println("player roll 1: " + enemyPlayer.getNumbersFromRoll1());
+           System.out.println("player roll 2: " + enemyPlayer.getNumbersFromRoll2());
+           System.out.println("player bar: " + enemyPlayer.getBar());
+           System.out.println("player moves left: " + enemyPlayer.getMovesLeft());
+           System.out.println("player score: " + enemyPlayer.getScore());
+           System.out.println("player your turn: " + enemyPlayer.getYourTurn());
         }
         player1.setNumbersFromRoll1(0);//now he has to roll to get numbers again
         player1.setNumbersFromRoll2(0);//now he has to roll to get numbers again
         player2.setNumbersFromRoll1(0);//now he has to roll to get numbers again
         player2.setNumbersFromRoll2(0);//now he has to roll to get numbers again
     }
-/*
-    public static int numberOfRocksOnBarSoFar;
-    public static void getOffTheBarFirst(){
-        Scanner chooseRock = new Scanner(System.in);
 
-        System.out.print(currentPlayer.getName() + ", which rock would you like to move?");//You think, which one?
-        int targetVectorToGetOff = chooseRock.nextInt();
-        if((targetVectorToGetOff != currentPlayer.getNumbersFromRoll1())||(targetVectorToGetOff != currentPlayer.getNumbersFromRoll2()))
-        while ((targetVectorToGetOff != currentPlayer.getNumbersFromRoll1())||(targetVectorToGetOff != currentPlayer.getNumbersFromRoll2())) {// While you can't find a good destination for your stone...
-            System.out.print("which rock would you like to move?");//You think again.
-            targetVectorToGetOff= reader.nextInt();//You then decide your next move.
-            if ((targetVectorToGetOff == currentPlayer.getNumbersFromRoll1())||(targetVectorToGetOff == currentPlayer.getNumbersFromRoll2())) {//You realize it. This might be correct. If it's really true,
-                System.out.println("Ok, rock allowed");//You think: Yes, I can move it there.
-                break;//Then, you snap out of it - Congratulations, you have found a move.
+    public static int targetVectorToLandOn;
+
+    public static void getOffTheBarFirst(){
+        Scanner diceInput = new Scanner(System.in);
+
+        System.out.print(currentPlayer.getName() + ", where do you wish to land?");//You think, where do I land now??
+        int diceChosen = diceInput.nextInt();//You then pick a spot, by looking at your dice.
+
+        if(currentPlayer.getPlayerColor() == "b"){//if black, land in enemy area
+        System.out.println("Player color b, get off");
+            switch(diceChosen){
+                case 1: targetVectorToLandOn = 0;break;
+                case 2: targetVectorToLandOn = 1;break;
+                case 3: targetVectorToLandOn = 2;break;
+                case 4: targetVectorToLandOn = 3;break;
+                case 5: targetVectorToLandOn = 4;break;
+                case 6: targetVectorToLandOn = 5;break;
+            }
+
+            if (board.deck.get(targetVectorToLandOn) == 0) {
+                System.out.println("1b");//WORKS
+                board.bar.put(currentPlayer.getBar(), board.bar.get(currentPlayer.getBar())-1);//remove one stone from the bar
+                board.addStone(targetVectorToLandOn, currentPlayer.getPlayerColor(), enemyPlayer, currentPlayer);//add to target
+
+                currentPlayer.setMoves(currentPlayer.getMovesLeft() - 1);//and now has one less move
+                System.out.println("Moves left for current player:" + currentPlayer.getMovesLeft());
+                if(twoMoves){
+                    if(diceChosen == currentPlayer.getNumbersFromRoll1()){
+                        currentPlayer.setNumbersFromRoll1(0);
+                    }
+                    else if(diceChosen == currentPlayer.getNumbersFromRoll2()){
+                        currentPlayer.setNumbersFromRoll2(0);
+                    }
+
+                }
+            }
+      else if ((board.deck.get(targetVectorToLandOn) == 1) && (board.colors.get(currentPlayer.getPlayerColor()) == "b")) {
+            System.out.println("2b");
+            //board.removeStoneFromTheBar(currentPlayer.getBar(),targetVectorToLandOn, currentPlayer.getPlayerColor());
+            board.bar.put(currentPlayer.getBar(), board.bar.get(currentPlayer.getBar())-1);
+            board.addStone(targetVectorToLandOn, currentPlayer.getPlayerColor(), enemyPlayer, currentPlayer);
+            //board.bar.put(currentPlayer.getBar(), board.bar.get(currentPlayer.getBar())-1);
+            currentPlayer.setMoves(currentPlayer.getMovesLeft()-1);
+            System.out.println("Moves left for current player:" + currentPlayer.getMovesLeft());
+            if(twoMoves){
+                if(diceChosen == currentPlayer.getNumbersFromRoll1()){
+                    currentPlayer.setNumbersFromRoll1(0);
+                }
+                else if(diceChosen == currentPlayer.getNumbersFromRoll2()){
+                    currentPlayer.setNumbersFromRoll2(0);
+                }
+
             }
         }
 
-        System.out.println("Time to get the rocks off the bar.");
-        if(currentPlayer.getPlayerColor() == "b"){
-          numberOfRocksOnBarSoFar = board.bar.get(1);
+       else if ((board.deck.get(targetVectorToLandOn) > 1) && (board.colors.get(currentPlayer.getPlayerColor()) == "b")) {
+            System.out.println("3b");
+            board.addStone(targetVectorToLandOn, currentPlayer.getPlayerColor(), enemyPlayer, currentPlayer);
+           // currentPlayer.setMoves(currentPlayer.getMovesLeft()-1);
+            System.out.println("Moves left for current player:" + currentPlayer.getMovesLeft());
+            if(twoMoves){
+                if(diceChosen == currentPlayer.getNumbersFromRoll1()){
+                    currentPlayer.setNumbersFromRoll1(0);
+                }
+                else if(diceChosen == currentPlayer.getNumbersFromRoll2()){
+                    currentPlayer.setNumbersFromRoll2(0);
+                }
 
+            }
+        }
+       else if ((board.deck.get(targetVectorToLandOn) == 1) && (board.colors.get(enemyPlayer.getPlayerColor()) == "w")) {
+            System.out.println("4b");
+            //board.removeStoneFromTheBar(currentPlayer.getBar(),targetVectorToLandOn, currentPlayer.getPlayerColor());
+            //board.bar.put(currentPlayer.getBar(), board.bar.get(currentPlayer.getBar())-1);
+            board.addStone(target, currentPlayer.getPlayerColor(), enemyPlayer, currentPlayer);
+            //board.bar.put(currentPlayer.getBar(), board.bar.get(currentPlayer.getBar())-1);
+          currentPlayer.setMoves(currentPlayer.getMovesLeft()-1);
+            System.out.println("Moves left for current player:" + currentPlayer.getMovesLeft());
+            if(twoMoves){
+                if(diceChosen == currentPlayer.getNumbersFromRoll1()){
+                    currentPlayer.setNumbersFromRoll1(0);
+                }
+                else if(diceChosen == currentPlayer.getNumbersFromRoll2()){
+                    currentPlayer.setNumbersFromRoll2(0);
+                }
 
-            if((targetVectorToGetOff == currentPlayer.getNumbersFromRoll1())||(targetVectorToGetOff == currentPlayer.getNumbersFromRoll2())) {
-                if (board.deck.get(targetVectorToGetOff) == 0) {
-                    board.removeStoneFromBar(currentPlayer, targetVectorToGetOff);
-                }
-                else if ((board.deck.get(targetVectorToGetOff) == 1) && (board.colors.get(currentPlayer.getPlayerColor()) == "b")) {
-                    board.removeStoneFromBar(currentPlayer, targetVectorToGetOff);
-                }
+            }
+        }
+       else if ((board.deck.get(targetVectorToLandOn) > 1) && (board.colors.get(enemyPlayer.getPlayerColor()) == "w")){
+            System.out.println("Can't land there, more than one rocks of enemy color");
+        }
+            else
+            System.out.println("Something's off @ getOff method 1");
+   }//todo: zero move chosen for get off bar
+    //todo: fix problems when > or = 1 stones present at vector,
 
-                else if ((board.deck.get(targetVectorToGetOff) > 1) && (board.colors.get(currentPlayer.getPlayerColor()) == "b")) {
-                    board.deck.put(targetVectorToGetOff, board.deck.get(targetVectorToGetOff) + 1);
-                }
-                else if ((board.deck.get(targetVectorToGetOff) == 1) && (board.colors.get(enemyPlayer.getPlayerColor()) == "w")) {
-                    board.removeStoneFromBar(currentPlayer, targetVectorToGetOff);
-                    board.addStoneToBar(enemyPlayer, enemyPlayer.bar);
-                }
-                else if ((board.deck.get(targetVectorToGetOff) > 1) && (board.colors.get(enemyPlayer.getPlayerColor()) == "w")){
-                    System.out.println("Can't get off there, more than one rocks of enemy color");
-                }
-                else {
-                    System.out.println("Something's wrong");
+        if(currentPlayer.getPlayerColor() == "w"){
+            System.out.println("Player color b, get off");
+            switch(diceChosen){
+                case 1: targetVectorToLandOn = 23;break;
+                case 2: targetVectorToLandOn = 22;break;
+                case 3: targetVectorToLandOn = 21;break;
+                case 4: targetVectorToLandOn = 20;break;
+                case 5: targetVectorToLandOn = 19;break;
+                case 6: targetVectorToLandOn = 18;break;
+            }
+
+            if (board.deck.get(targetVectorToLandOn) == 0) {
+                System.out.println("1w");//WORKS
+                board.bar.put(currentPlayer.getBar(), board.bar.get(currentPlayer.getBar())-1);
+                board.addStone(targetVectorToLandOn, currentPlayer.getPlayerColor(), enemyPlayer, currentPlayer);
+               // board.bar.put(currentPlayer.getBar(), board.bar.get(currentPlayer.getBar())-1);
+                currentPlayer.setMoves(currentPlayer.getMovesLeft() - 1);
+                System.out.println("Moves left for current player:" + currentPlayer.getMovesLeft());
+                if(twoMoves){
+                    if(diceChosen == currentPlayer.getNumbersFromRoll1()){
+                        currentPlayer.setNumbersFromRoll1(0);
+                    }
+                    else if(diceChosen == currentPlayer.getNumbersFromRoll2()){
+                        currentPlayer.setNumbersFromRoll2(0);
+                    }
+
                 }
             }
-          }
+            else if ((board.deck.get(targetVectorToLandOn) == 1) && (board.colors.get(currentPlayer.getPlayerColor()) == "w")) {
+                System.out.println("2w");
+               // board.removeStoneFromTheBar(currentPlayer.getBar(),targetVectorToLandOn, currentPlayer.getPlayerColor());
+                board.bar.put(currentPlayer.getBar(), board.bar.get(currentPlayer.getBar())-1);
+                board.addStone(targetVectorToLandOn, currentPlayer.getPlayerColor(), enemyPlayer, currentPlayer);
+              //  board.bar.put(currentPlayer.getBar(), board.bar.get(currentPlayer.getBar())-1);
+                currentPlayer.setMoves(currentPlayer.getMovesLeft()-1);
+                System.out.println("Moves left for current player:" + currentPlayer.getMovesLeft());
+                if(twoMoves){
+                    if(diceChosen == currentPlayer.getNumbersFromRoll1()){
+                        currentPlayer.setNumbersFromRoll1(0);
+                    }
+                    else if(diceChosen == currentPlayer.getNumbersFromRoll2()){
+                        currentPlayer.setNumbersFromRoll2(0);
+                    }
+
+                }
+            }
+
+            else if ((board.deck.get(targetVectorToLandOn) > 1) && (board.colors.get(currentPlayer.getPlayerColor()) == "w")) {
+                System.out.println("3w");
+
+                board.addStone(targetVectorToLandOn, currentPlayer.getPlayerColor(), enemyPlayer, currentPlayer);
+              //  board.bar.put(currentPlayer.getBar(), board.bar.get(currentPlayer.getBar())-1);
+                currentPlayer.setMoves(currentPlayer.getMovesLeft()-1);
+                System.out.println("Moves left for current player:" + currentPlayer.getMovesLeft());
+                if(twoMoves){
+                    if(diceChosen == currentPlayer.getNumbersFromRoll1()){
+                        currentPlayer.setNumbersFromRoll1(0);
+                    }
+                    else if(diceChosen == currentPlayer.getNumbersFromRoll2()){
+                        currentPlayer.setNumbersFromRoll2(0);
+                    }
+
+                }
+            }
+            else if ((board.deck.get(targetVectorToLandOn) == 1) && (board.colors.get(enemyPlayer.getPlayerColor()) == "b")) {
+                System.out.println("4w");
+
+                //board.removeStoneFromTheBar(currentPlayer.getBar(),targetVectorToLandOn, currentPlayer.getPlayerColor());
+                board.bar.put(currentPlayer.getBar(), board.bar.get(currentPlayer.getBar())-1);
+                board.addStone(target, currentPlayer.getPlayerColor(), enemyPlayer, currentPlayer);
+              //  board.bar.put(currentPlayer.getBar(), board.bar.get(currentPlayer.getBar())-1);
+                currentPlayer.setMoves(currentPlayer.getMovesLeft()-1);
+                System.out.println("Moves left for current player:" + currentPlayer.getMovesLeft());
+                if(twoMoves){
+                    if(diceChosen == currentPlayer.getNumbersFromRoll1()){
+                        currentPlayer.setNumbersFromRoll1(0);
+                    }
+                    else if(diceChosen == currentPlayer.getNumbersFromRoll2()){
+                        currentPlayer.setNumbersFromRoll2(0);
+                    }
+
+                }
+            }
+            else if ((board.deck.get(targetVectorToLandOn) > 1) && (board.colors.get(enemyPlayer.getPlayerColor()) == "b")){
+                System.out.println("Can't land there, more than one rocks of enemy color");
+            }
+            else
+                System.out.println("Something's off @ getOff method 2");
+        }
     }
-*/
+
+
+public static int targetVectorToBearOff;
+    public static boolean bearOffPossible(){
+        /*to be able to bear off, all 15 stones must be within the current player's home board,
+        and none must be on the bar or the battlefield.
+         */
+//First two ifs are to choose vector depending on color of currentplayer
+        if(currentPlayer.getPlayerColor() == "b"){//if b
+            System.out.println("Player color b, get off");
+            switch(currentRoll){
+                case 1: targetVectorToBearOff = 0;break;
+                case 2: targetVectorToBearOff = 1;break;
+                case 3: targetVectorToBearOff= 2;break;
+                case 4: targetVectorToBearOff= 3;break;
+                case 5: targetVectorToBearOff= 4;break;
+                case 6: targetVectorToBearOff= 5;break;
+            }
+        if(currentPlayer.getPlayerColor() == "w"){//if w
+                System.out.println("Player color b, get off");
+                switch(currentRoll){
+                    case 1: targetVectorToBearOff = 23;break;
+                    case 2: targetVectorToBearOff = 22;break;
+                    case 3: targetVectorToBearOff= 21;break;
+                    case 4: targetVectorToBearOff= 20;break;
+                    case 5: targetVectorToBearOff= 19;break;
+                    case 6: targetVectorToBearOff= 18;break;
+            }
+
+        String[] tempColorsArray = new String[26];//create new array
+        int i;//counter for array
+        int j = 0;//counter for hashmap
+        int limiter = 18;//limit of array
+
+        for (HashMap.Entry<Integer, String>entry : board.colors.entrySet())
+        {
+         tempColorsArray[j] = entry.getValue();
+        }
+
+         for(i = 0; i < limiter; i++){
+             if((tempColorsArray[i] != currentPlayer.getPlayerColor()&&(i < limiter))){
+                 bearOff = true;
+                 i++;
+             }
+             else
+                 bearOff = false;
+         }
+        }
+      }
+    if (bearOff == true)
+      return true;
+    else
+      return false;
+    }
+
+    public static void bearOff(){
+
+
+            board.bar.put(currentPlayer.getBar(), board.bar.get(currentPlayer.getPlayerColor())+1);
+            board.deck.put(targetVectorToBearOff, board.deck.get(targetVectorToBearOff) - 1);
+            if (board.deck.get(targetVectorToBearOff) == 0)
+                board.colors.put(targetVectorToBearOff, "n");
+            else
+                System.out.println("Something's off, bear off method");
+        }
+
+
 public static void gameLoop() {
 
     Scanner reader = new Scanner(System.in);
 
     while ((board.gameOver() == 0) && (currentPlayer.yourTurn == 1)) {//If the game hasn't ended and it's still your turn,
 
-        //if (board.thereExistRocksOnBar(currentPlayer.getPlayerColor()) != 10) {
-        //    getOffTheBarFirst();
-        //    continue;
-        //} else {
 
-            if (currentPlayer.getMovesLeft() == 0) {//if you have no turns, you haven't rolled your dice yet,
-                dice.rollDice();//you throw the dice.
-                System.out.println("Die 1: " + dice.getDiceRoll1() + ", " + "Die 2: " + dice.getDiceRoll2());//You look at your dice and register the numbers in your head:
-                currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//You look and register number 1
-                currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//and you look and register number 2
+        if (currentPlayer.getMovesLeft() == 0) {//if you have no turns, you haven't rolled your dice yet,
+            dice.rollDice();//you throw the dice.
+            System.out.println("Die 1: " + dice.getDiceRoll1() + ", " + "Die 2: " + dice.getDiceRoll2());//You look at your dice and register the numbers in your head:
+            currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//You look and register number 1
+            currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//and you look and register number 2
 
-                //Now comes the part where you recall from your head how many moves you're playing according to the dice numbers.
+            //Now comes the part where you recall from your head how many moves you're playing according to the dice numbers.
 
-                if (currentPlayer.numbersFromRoll1 == currentPlayer.numbersFromRoll2) {// You look at the dice, and the numbers are the same
-                    currentPlayer.setMoves(4);//Lucky you, you get doubles.
-                    currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//You remember the first number,
-                    currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//you remember the second number
-                    fourMoves = true;//You realize you have 4 moves,
-                    System.out.println("You get 4 moves");// and you keep in mind the numbers cause those are your 4 steps of the numbers you just rolled.
+            if (currentPlayer.numbersFromRoll1 == currentPlayer.numbersFromRoll2) {// You look at the dice, and the numbers are the same
+                currentPlayer.setMoves(4);//Lucky you, you get doubles.
+                currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//You remember the first number,
+                currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//you remember the second number
+                fourMoves = true;//You realize you have 4 moves,
+                System.out.println("You get 4 moves");// and you keep in mind the numbers cause those are your 4 steps of the numbers you just rolled.
 
-                }//Then, your thought shifts onto the next scenario.
-                else if (currentPlayer.numbersFromRoll1 != currentPlayer.numbersFromRoll2) {//You look at the numbers, and they are different.
-                    currentPlayer.setMoves(2);//Two moves, sorry.
-                    currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//You register the first number, that's move one,
-                    currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//and you register the second number, that'll be move two.
-                    twoMoves = true;//You realize you have two moves,
-                    System.out.println("You get 2 moves");// you mutter it for the record and you prepare to play.
+            }//Then, your thought shifts onto the next scenario.
+            else if (currentPlayer.numbersFromRoll1 != currentPlayer.numbersFromRoll2) {//You look at the numbers, and they are different.
+                currentPlayer.setMoves(2);//Two moves, sorry.
+                currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//You register the first number, that's move one,
+                currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//and you register the second number, that'll be move two.
+                twoMoves = true;//You realize you have two moves,
+                System.out.println("You get 2 moves");// you mutter it for the record and you prepare to play.
 
-                }//Now that you've got your number of moves nad actual moves,  you start moving the stones around.
-            }
+            }//Now that you've got your number of moves nad actual moves,  you start moving the stones around.
+        }
+        //By this point, you have your numbers - now you check whether you have stones ont teh bar
+        if (board.thereExistRocksOnBar(currentPlayer.getPlayerColor()) != 0) {
+            getOffTheBarFirst();//and if you do, well, time to get them off
+            continue;
+        } else {
 
             System.out.print(currentPlayer.getName() + ", which rock would you like to move?");//You think, which one?
             currentRock = reader.nextInt();//Then you pick a number.
@@ -429,11 +643,10 @@ public static void gameLoop() {
             System.out.println(board.colors.toString());
             System.out.println(board.bar.toString());
             System.out.println(board.barColors.toString());
-
+            CLI.draw(board);
         }
     }
-//}
-
+}
     public static void main(String args[]) {
 
         reader = new Scanner(System.in);//You realize you need to have an input for your head to get info from.
@@ -470,6 +683,7 @@ public static void gameLoop() {
         setupBoard();//It sets up the board for them,
         initialGame();//and then they roll dice to decide who goes first.
         gameLoop();//After everything is done, the game begins...
+
 
         }
     }

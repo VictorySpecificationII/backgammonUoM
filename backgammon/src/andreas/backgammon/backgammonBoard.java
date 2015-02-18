@@ -35,36 +35,32 @@ public class backgammonBoard {
         System.out.println(deck.toString());
         System.out.println(colors.toString());
         System.out.println("");
-        System.out.println("Hashes 24 and 25 used for side pockets");
         System.out.println("");
 
         //Setting up white rocks
-        deck.put(0, 2);
-        colors.put(0,"w");
-        deck.put(11, 5);
-        colors.put(11,"w");
-        deck.put(16, 3);
-        colors.put(16,"w");
-        deck.put(18, 5);
-        colors.put(18,"w");
-        deck.put(24, 0);
-        colors.put(24, "w");
-        //Setting up black rocks
-        deck.put(23, 2);
-        colors.put(23,"b");
+        deck.put(1, 2);
+        colors.put(1,"w");
         deck.put(12, 5);
-        colors.put(12,"b");
-        deck.put(7, 3);
-        colors.put(7,"b");
-        deck.put(5, 5);
-        colors.put(5,"b");
-        deck.put(25, 0);
-        colors.put(25, "b");
+        colors.put(12,"w");
+        deck.put(17, 3);
+        colors.put(17,"w");
+        deck.put(19, 5);
+        colors.put(19,"w");
+        //Setting up black rocks
+        deck.put(24, 2);
+        colors.put(24,"b");
+        deck.put(13, 5);
+        colors.put(13,"b");
+        deck.put(8, 3);
+        colors.put(8,"b");
+        deck.put(6, 5);
+        colors.put(6,"b");
+        //deck.put(25, 0);
+        //colors.put(25, "b");
         System.out.println("Modified Hash Tables:");
         System.out.println(deck.toString());
         System.out.println(colors.toString());
         System.out.println("");
-        System.out.println("24 -> white side pocket, 25 -> black side pocket");
 
         bar.put(0,0);
         bar.put(1,0);
@@ -101,6 +97,15 @@ public class backgammonBoard {
            }
         }
     }
+
+  // public void removeStoneFromTheBar(int whichBar,int target, String color){
+  //     bar.put(whichBar, bar.get(whichBar)-1);//remove a rock from the bar
+
+  // }
+   public void addStoneBackToDeck(int target, String color){
+       deck.put(target, deck.get(target)+1);//put to the deck
+       colors.put(target, barColors.get(target));//along with it's respective color
+   }
 
    public void removeStone(int target, String color ){
         //If you try to remove a stone from a vector where there are no stones (I don't know why you'd do that so that's why this is here)
@@ -140,20 +145,19 @@ public class backgammonBoard {
         int r;
         if (color == "w") {
             r = bar.get(0);
-            System.out.println(r+"w");
+            System.out.println("There exist "+ r +" white rocks on bar");
             if (r != 0) {//if the result is not zero then it means that there's stones in the bar
                 return 1;
             }
         }
-        else if (color == "b") {
+        if (color == "b") {
             r = bar.get(1);
-            System.out.println(r+"b");
+            System.out.println("There exist "+ r +" black rocks on bar");
             if (r != 0) {//if the result is not zero then it means that there's stones in the bar
                 return 2;
             }
         }
-        else
-            return 10;
+
 
         return 0;
 
