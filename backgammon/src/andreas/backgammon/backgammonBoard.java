@@ -7,7 +7,7 @@ import java.util.*;
 public class backgammonBoard {
 
     //A backgammon deck has the following properties
-    public static Hashtable<Integer, Integer> deck; //deck, bar, side pockets go here slots 24 and 25
+    public static Hashtable<Integer, Integer> deck; //deck
     public static Hashtable<Integer, String> colors;//colors for the rocks
     public static Hashtable<Integer, Integer> bar;
     public static Hashtable<Integer, String> barColors;

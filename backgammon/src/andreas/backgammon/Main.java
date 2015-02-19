@@ -1,5 +1,7 @@
 package andreas.backgammon;
 
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.*;
 //todo: Finish making moves ✓
 //todo: fix deck✓
@@ -7,7 +9,7 @@ import java.util.*;
 //todo: implement bearing off -> partly done, 2 methods: possible, actual act - need to implement into gameLoop function
 //todo: game over condition✓;
 //todo: THEN LOGIC IS FINISHED,
-//todo: GUI
+//todo: GUI✓
 //todo: SERVER
 //todo: AI
 //*BUG: When hitting, eg state 1: vector 12-> 1, w. Hit from 14, turns to this: vector 12 -> 2, w - check board class for it
@@ -216,6 +218,7 @@ public class Main {
             //You reroll cause you can't both start first.
             //it goes on for a while, and you keep rolling the same numbers.
             while (player1.getNumbersFromRoll1() == player2.getNumbersFromRoll2()) {//While they are the same...
+
                 currentPlayer = player1;//Someone has to go first.
                 dice.rollDice();//The first player throws again
                 System.out.println("");
@@ -244,16 +247,16 @@ public class Main {
 
             currentPlayer = player1;//You are the current player,
             enemyPlayer = player2;//and your mate is your enemy player.
-
+//
            System.out.println("Current player object attributes:");
            System.out.println("player name: " + currentPlayer.getName());
            System.out.println("player number: " + currentPlayer.getPlayerNumber());
            System.out.println("player color: " + currentPlayer.getPlayerColor());
-           System.out.println("player roll 1: " + currentPlayer.getNumbersFromRoll1());
-           System.out.println("player roll 2: " + currentPlayer.getNumbersFromRoll2());
-           System.out.println("player bar number: " + currentPlayer.getBar());
-           System.out.println("player moves left: " + currentPlayer.getMovesLeft());
-           System.out.println("player score: " + currentPlayer.getScore());
+           //System.out.println("player roll 1: " + currentPlayer.getNumbersFromRoll1());
+           //System.out.println("player roll 2: " + currentPlayer.getNumbersFromRoll2());
+           //System.out.println("player bar number: " + currentPlayer.getBar());
+           //System.out.println("player moves left: " + currentPlayer.getMovesLeft());
+           //System.out.println("player score: " + currentPlayer.getScore());
            System.out.println("player your turn: " + currentPlayer.getYourTurn());
            System.out.println("");
 
@@ -261,12 +264,12 @@ public class Main {
            System.out.println("player name: " + enemyPlayer.getName());
            System.out.println("player number: " + enemyPlayer.getPlayerNumber());
            System.out.println("player color: " + enemyPlayer.getPlayerColor());
-           System.out.println("player roll 1: " + enemyPlayer.getNumbersFromRoll1());
-           System.out.println("player roll 2: " + enemyPlayer.getNumbersFromRoll2());
-           System.out.println("player bar: " + enemyPlayer.getBar());
-           System.out.println("player moves left: " + enemyPlayer.getMovesLeft());
-           System.out.println("player score: " + enemyPlayer.getScore());
-           System.out.println("player your turn: " + enemyPlayer.getYourTurn());
+           //System.out.println("player roll 1: " + enemyPlayer.getNumbersFromRoll1());
+           //System.out.println("player roll 2: " + enemyPlayer.getNumbersFromRoll2());
+           //System.out.println("player bar: " + enemyPlayer.getBar());
+           //System.out.println("player moves left: " + enemyPlayer.getMovesLeft());
+           //System.out.println("player score: " + enemyPlayer.getScore());
+           //System.out.println("player your turn: " + enemyPlayer.getYourTurn());
 
         }
 
@@ -291,24 +294,25 @@ public class Main {
            System.out.println("player name: " + currentPlayer.getName());
            System.out.println("player number: " + currentPlayer.getPlayerNumber());
            System.out.println("player color: " + currentPlayer.getPlayerColor());
-           System.out.println("player roll 1: " + currentPlayer.getNumbersFromRoll1());
-           System.out.println("player roll 2: " + currentPlayer.getNumbersFromRoll2());
-           System.out.println("player bar: " + currentPlayer.getBar());
-           System.out.println("player moves left: " + currentPlayer.getMovesLeft());
-           System.out.println("player score: " + currentPlayer.getScore());
-           System.out.println("player your turn: " + currentPlayer.getYourTurn());
+           //System.out.println("player roll 1: " + currentPlayer.getNumbersFromRoll1());
+          // System.out.println("player roll 2: " + currentPlayer.getNumbersFromRoll2());
+         //  System.out.println("player bar: " + currentPlayer.getBar());
+         //  System.out.println("player moves left: " + currentPlayer.getMovesLeft());
+         //  System.out.println("player score: " + currentPlayer.getScore());
+         //  System.out.println("player your turn: " + currentPlayer.getYourTurn());
            System.out.println("");
 
            System.out.println("Enemy player object attributes:");
            System.out.println("player name: " + enemyPlayer.getName());
            System.out.println("player number: " + enemyPlayer.getPlayerNumber());
            System.out.println("player color: " + enemyPlayer.getPlayerColor());
-           System.out.println("player roll 1: " + enemyPlayer.getNumbersFromRoll1());
-           System.out.println("player roll 2: " + enemyPlayer.getNumbersFromRoll2());
-           System.out.println("player bar: " + enemyPlayer.getBar());
-           System.out.println("player moves left: " + enemyPlayer.getMovesLeft());
-           System.out.println("player score: " + enemyPlayer.getScore());
-           System.out.println("player your turn: " + enemyPlayer.getYourTurn());
+          // System.out.println("player roll 1: " + enemyPlayer.getNumbersFromRoll1());
+          // System.out.println("player roll 2: " + enemyPlayer.getNumbersFromRoll2());
+          // System.out.println("player bar: " + enemyPlayer.getBar());
+          // System.out.println("player moves left: " + enemyPlayer.getMovesLeft());
+          // System.out.println("player score: " + enemyPlayer.getScore());
+          // System.out.println("player your turn: " + enemyPlayer.getYourTurn());
+             System.out.println("");
         }
         player1.setNumbersFromRoll1(0);//now he has to roll to get numbers again
         player1.setNumbersFromRoll2(0);//now he has to roll to get numbers again
@@ -575,6 +579,7 @@ public static void gameLoop() {
 
     while ((board.gameOver() == 0) && (currentPlayer.yourTurn == 1)) {//If the game hasn't ended and it's still your turn,
 
+        CLI.draw(board);
 
         if (currentPlayer.getMovesLeft() == 0) {//if you have no turns, you haven't rolled your dice yet,
             dice.rollDice();//you throw the dice.
