@@ -3,6 +3,8 @@ package andreas.backgammon;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.*;
+import java.net.*;
+import java.io.*;
 //todo: Finish making moves ✓
 //todo: fix deck✓
 //todo: implement hitting, partly works (03/02/15)
@@ -581,6 +583,25 @@ public static void gameLoop() {
 
         CLI.draw(board);
 
+        String serverName = "localhost";
+        int port = 6061;
+        try
+        {
+            System.out.println("Connecting to " + serverName + " on port " + port);
+            Socket client = new Socket(serverName, port);
+            System.out.println("Just connected to " + client.getRemoteSocketAddress());
+            OutputStream outToServer = client.getOutputStream();
+            DataOutputStream out = new DataOutputStream(outToServer);
+            out.writeUTF("Hello from "+ client.getLocalSocketAddress());
+            InputStream inFromServer = client.getInputStream();
+            DataInputStream in = new DataInputStream(inFromServer);
+            System.out.println("Server says " + in.readUTF());
+            client.close();
+        }catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+
         if (currentPlayer.getMovesLeft() == 0) {//if you have no turns, you haven't rolled your dice yet,
             dice.rollDice();//you throw the dice.
             System.out.println("Die 1: " + dice.getDiceRoll1() + ", " + "Die 2: " + dice.getDiceRoll2());//You look at your dice and register the numbers in your head:
@@ -652,6 +673,14 @@ public static void gameLoop() {
         }
     }
 }
+    public static void sendBoardToServer(){
+    //todo: code receiving board object from server
+    }
+
+    public static void receiveBoardFromServer(){
+        //todo:code receiving board object from server
+    }
+
     public static void main(String args[]) {
 
         reader = new Scanner(System.in);//You realize you need to have an input for your head to get info from.

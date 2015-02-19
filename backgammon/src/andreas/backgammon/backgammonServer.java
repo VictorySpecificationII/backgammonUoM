@@ -22,11 +22,15 @@ import java.util.HashMap;
         public backgammonServer(int port) throws IOException
         {
             serverSocket = new ServerSocket(port);//instantiate a ServerSocket object, denoting which port number communication is to occur on.
-            serverSocket.setSoTimeout(1000000);//set timeout period
+            serverSocket.setSoTimeout(99999999);//set timeout period
         }
-        private static void updateHashMaps(Socket socket){
+
+        private static void sendBoardToClient(){
+            //todo: code sending objects to client
+        }
+        private static void receiveBoardFromClient(Socket socket){
             try {
-            //todo: implement one by one sending on client
+            //todo: verify function
                 InputStream InputStream = socket.getInputStream();//InputStream from where to receive the map, in case of network you get it from the Socket instance.
                 ObjectInputStream mapInputStream = new ObjectInputStream(InputStream);//define input stream for incoming map
                 deckServerSide =(HashMap<Integer, Integer>)mapInputStream.readObject();//read deck into map
@@ -71,7 +75,7 @@ import java.util.HashMap;
                     DataInputStream in = new DataInputStream(server.getInputStream());
                     System.out.println(in.readUTF());
                     DataOutputStream out = new DataOutputStream(server.getOutputStream());
-                    updateHashMaps(server);
+                    receiveBoardFromClient(server);
                     out.writeUTF("Board updated!");
                     out.writeUTF("Thank you for connecting to " + server.getLocalSocketAddress() + ".\n See you next round!");
                     serverSocket.close();//server will never stop by itself, only when interrupt from CLI occurs - just close connection
