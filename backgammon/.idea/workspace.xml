@@ -93,8 +93,8 @@
       <file leaf-file-name="backgammonServer.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/backgammonServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5969697" vertical-offset="211" max-vertical-offset="1802">
-              <caret line="24" column="67" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
+            <state vertical-scroll-proportion="0.55454546" vertical-offset="1109" max-vertical-offset="1836">
+              <caret line="76" column="136" selection-start-line="76" selection-start-column="136" selection-end-line="76" selection-end-column="136" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#326#344#0" expanded="true" />
@@ -916,8 +916,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/backgammonServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5969697" vertical-offset="211" max-vertical-offset="1802">
-          <caret line="24" column="67" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
+        <state vertical-scroll-proportion="0.55454546" vertical-offset="1109" max-vertical-offset="1836">
+          <caret line="76" column="136" selection-start-line="76" selection-start-column="136" selection-end-line="76" selection-end-column="136" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#326#344#0" expanded="true" />

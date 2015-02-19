@@ -64,7 +64,7 @@ import java.util.HashMap;
             {
                 try
                 {
-                    System.out.println("Fire and forget server for backgammon");
+
                     System.out.println("Waiting for client on port " +  serverSocket.getLocalPort() + "...");
                     Socket server = serverSocket.accept();
                     System.out.println("Just connected to " + server.getRemoteSocketAddress());
@@ -72,8 +72,9 @@ import java.util.HashMap;
                     System.out.println(in.readUTF());
                     DataOutputStream out = new DataOutputStream(server.getOutputStream());
                     updateHashMaps(server);
-                    out.writeUTF("Thank you for connecting to " + server.getLocalSocketAddress() + "\nGoodbye!");
-                    //server will never stop by itself, only when interrupt from CLI occurs
+                    out.writeUTF("Board updated!");
+                    out.writeUTF("Thank you for connecting to " + server.getLocalSocketAddress() + ".\n See you next round!");
+                    serverSocket.close();//server will never stop by itself, only when interrupt from CLI occurs - just close connection
                 }catch(SocketTimeoutException s)
                 {
                     System.out.println("Socket timed out!");
@@ -87,6 +88,7 @@ import java.util.HashMap;
         }
         public static void main(String [] args)
         {
+            System.out.println("Fire and forget server for backgammon");
             int port = 6061;
             try
             {
