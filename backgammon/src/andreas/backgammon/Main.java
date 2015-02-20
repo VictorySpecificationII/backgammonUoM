@@ -675,7 +675,33 @@ public static void gameLoop() {
 }
     public static void sendBoardToServer(){
     //todo: code receiving board object from server
-    }
+        //establish connection
+        String destinationIP = "localhost";
+        int port = 6061;
+        try {
+            Socket clientSocket = new Socket(destinationIP, port);
+            OutputStream outBox = clientSocket.getOutputStream();
+            ObjectOutputStream out = new ObjectOutputStream(outBox);
+
+            //grab board contents
+            Hashtable<Integer, Integer> outDeck = board.deck;
+            Hashtable<Integer, String> outColors = board.colors;
+            Hashtable<Integer, Integer> outBar = board.bar;
+            Hashtable<Integer, String> outBarColors = board.barColors;
+
+            //serialize and send to server
+            out.writeObject(outDeck);
+            //out.flush();
+            out.writeObject(outColors);
+            //out.flush();
+            out.writeObject(outBar);
+            //out.flush();
+            out.writeObject(outBarColors);
+            //out.flush();
+            clientSocket.close();
+        } catch(IOException e) {
+            System.out.println(e);
+        }    }
 
     public static void receiveBoardFromServer(){
         //todo:code receiving board object from server

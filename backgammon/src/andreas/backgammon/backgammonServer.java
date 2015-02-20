@@ -8,8 +8,6 @@ import java.util.HashMap;
 /**
  * Created by Antreas Christofi on 15/10/2014.
  */
-
-
     public class backgammonServer extends Thread
     {
         private ServerSocket serverSocket;
