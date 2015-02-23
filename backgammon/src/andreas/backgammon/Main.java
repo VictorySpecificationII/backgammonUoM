@@ -42,6 +42,7 @@ public class Main {
     public static boolean blackRocksOnBar = false;
     public static boolean bearOff = false;
     //public static boolean hit = false;
+    public static Long uuid;
     //--------------------------------------------------------------------
     //So here you are: You've setup the deck, had your initial roll, and you hit the game loop.
     //You've thrown your dice, determined your moves, chosen your rock, you've check if it can move,
@@ -707,8 +708,11 @@ public static void gameLoop() {
         //todo:code receiving board object from server
     }
 
+
     public static void main(String args[]) {
 
+
+        uuid = UUID.randomUUID().getMostSignificantBits();//generate unique id as players have not been assigned numbers yet
         reader = new Scanner(System.in);//You realize you need to have an input for your head to get info from.
         currentPlayer = new backgammonPlayer();//You realize you're a player (stop it, you :D), and as such a player has some attributes.
         enemyPlayer = new backgammonPlayer();//You realize your opponent is also a player. And that he has attributes too.
@@ -719,26 +723,10 @@ public static void gameLoop() {
 
         //Now, with that in mind - you and your opponent start communicating.
 
-        System.out.print("Hello, welcome to awe-gammon! How many games do you wish to play?"); //You ask him, how many games he's feeling like playing.
-        noGames = reader.nextInt();//You decide you're going to play that many games.
-        while(noGames <1) {//while you guys are having a dumb argument as to why -2 games is somehow an appropriate number of games
-            System.out.println("Invalid number of games, must be > 0");//The rules smack you on the face and you remember: Can't have a negative number of games, or zero games. It doesn't work that way.
-            noGames = reader.nextInt(); //You decide another number of games.
-        }
-
         Scanner input = new Scanner(System.in);//The computer needs a way of getting your names. You then give it one.
         System.out.print("What is your name?");//It then asks for the first name.
         name1 = input.nextLine();//One of you types it in.
         player1.setName(name1);//He remembers that one of his attributes as a player is a name, and now he has one.
-
-
-        System.out.print("And yours?");//The computer calmly asks for the second player.
-        name2 = input.nextLine();//The next player types their name in.
-        player2.setName(name2);//The other player also realizes he has a name as a player, and now this name he set will be his.
-
-        System.out.println("Number of games: "+noGames);//The computer then states the number of games
-        System.out.println("Game starting...");//and then lets the players know that the game is starting.
-        System.out.println("");//It wants to look neat so it prints an empty line too to make the output legible.
 
         setupBoard();//It sets up the board for them,
         initialGame();//and then they roll dice to decide who goes first.

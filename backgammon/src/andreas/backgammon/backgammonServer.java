@@ -20,7 +20,74 @@ import java.util.HashMap;
         public backgammonServer(int port) throws IOException
         {
             serverSocket = new ServerSocket(port);//instantiate a ServerSocket object, denoting which port number communication is to occur on.
-            serverSocket.setSoTimeout(99999999);//set timeout period
+
+        }
+        /*
+        What this is supposed to do server side:
+
+        Open socket and wait for connections
+        while not 2 clients have connected
+          if 2 connections reached, proceed
+           else
+            wait
+
+         (proceed below)
+        *client 1 sends his roll
+        client 2 sends his roll
+        roll is compared
+        while same, send signal to clients to reroll *
+
+        if client1.value > client2.value
+        send client1 its his turn to play
+        send client2 its not it;s turn to play
+
+        else
+
+        send client2 its his turn to play
+        send client1 its not it;s turn to play
+
+        close connection
+
+         */
+
+/*
+*  what it's supposed to do client-side
+*
+*client connects to server
+*send roll
+*get back whether he plays or not
+* */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public static void receiveRollC1(Socket server) throws IOException {
+            DataInputStream in = new DataInputStream(server.getInputStream());
+            int rollC1 = in.readInt();
+         }
+
+        public static void receiveRollC2(Socket server) throws IOException{
+            DataInputStream in = new DataInputStream(server.getInputStream());
+            int rollC2 = in.readInt();
+
         }
 
         private static void sendBoardToClient(){
