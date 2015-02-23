@@ -32,7 +32,7 @@ public class Main {
     public static backgammonBoard board;
     public static backgammonDice dice;
     public static String name1;
-    public static String name2;
+
     public static int currentRock;
     public static int currentRoll;
     public static boolean twoMoves;
@@ -207,11 +207,12 @@ public class Main {
         dice.rollDice();//The die is rolled,
         System.out.println("Dice roll for " + player1.getName() + ":" + dice.getDiceRoll1());
         currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//and the first player registers the first number.
-        currentPlayer = player2;//Then, the second player picks up the die
-        dice.rollDice();//and throws it.
-        System.out.println("Dice roll for " + player2.getName() + ":" + dice.getDiceRoll2());
-        currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//They then register the number they got.
 
+        //currentPlayer = player2;//Then, the second player picks up the die
+        //dice.rollDice();//and throws it.
+        //System.out.println("Dice roll for " + player2.getName() + ":" + dice.getDiceRoll2());
+        //currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//They then register the number they got.
+        sendRollToServer();
         //Now you look at your opponent and ask him, "what number did you roll?"
     if (player1.getNumbersFromRoll1() == player2.getNumbersFromRoll2()) {//He then tells you, and you tell him, and you check. If they are equal,
 
@@ -227,11 +228,11 @@ public class Main {
                 System.out.println("");
                 System.out.println("Dice roll for " + player1.getName()+ ":" + dice.getDiceRoll1());
                 currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//and registers the number he rolled.
-
-                currentPlayer = player2;//Then, it's your opponent's turn.
-                dice.rollDice();//They throw again,
-                System.out.println("Dice roll for " + player2.getName() + ":" + dice.getDiceRoll2());
-                currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//and register the number. They compare after this.
+                sendRollToServer();
+                //currentPlayer = player2;//Then, it's your opponent's turn.
+                //dice.rollDice();//They throw again,
+                //System.out.println("Dice roll for " + player2.getName() + ":" + dice.getDiceRoll2());
+                //currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//and register the number. They compare after this.
 
             }
 
@@ -244,7 +245,7 @@ public class Main {
             player1.setBar(0);//Lastly, your bar is number 0.
 
             player2.setPlayerNumber(2);//Unlucky him, he's player 2
-            player2.setYourTurn(0);//It's not his turn, and you let him know.
+            //player2.setYourTurn(0);//It's not his turn, and you let him know.
             player2.setPlayerColor("b");//You also let him know that he is moving black rocks.
             player2.setBar(1);//Lastly, his bar is number 1.
 
@@ -263,10 +264,10 @@ public class Main {
            System.out.println("player your turn: " + currentPlayer.getYourTurn());
            System.out.println("");
 
-           System.out.println("Enemy player object attributes:");
-           System.out.println("player name: " + enemyPlayer.getName());
-           System.out.println("player number: " + enemyPlayer.getPlayerNumber());
-           System.out.println("player color: " + enemyPlayer.getPlayerColor());
+          // System.out.println("Enemy player object attributes:");
+          // System.out.println("player name: " + enemyPlayer.getName());
+          // System.out.println("player number: " + enemyPlayer.getPlayerNumber());
+          // System.out.println("player color: " + enemyPlayer.getPlayerColor());
            //System.out.println("player roll 1: " + enemyPlayer.getNumbersFromRoll1());
            //System.out.println("player roll 2: " + enemyPlayer.getNumbersFromRoll2());
            //System.out.println("player bar: " + enemyPlayer.getBar());
@@ -279,9 +280,9 @@ public class Main {
 
        else{//OR, you snap out of that and you realize that his number is larger than yours in which case,
             player2.setPlayerNumber(1);//he is player 1,
-            player2.setYourTurn(1);//and it's his turn, you establish that.
+           // player2.setYourTurn(1);//and it's his turn, you establish that.
             player2.setPlayerColor("w");//You let him know that he's playing with white stones,
-            player2.setBar(0);//and his bar is number 0.
+           player2.setBar(0);//and his bar is number 0.
 
 
 
@@ -305,10 +306,10 @@ public class Main {
          //  System.out.println("player your turn: " + currentPlayer.getYourTurn());
            System.out.println("");
 
-           System.out.println("Enemy player object attributes:");
-           System.out.println("player name: " + enemyPlayer.getName());
-           System.out.println("player number: " + enemyPlayer.getPlayerNumber());
-           System.out.println("player color: " + enemyPlayer.getPlayerColor());
+          // System.out.println("Enemy player object attributes:");
+          // System.out.println("player name: " + enemyPlayer.getName());
+          // System.out.println("player number: " + enemyPlayer.getPlayerNumber());
+         //  System.out.println("player color: " + enemyPlayer.getPlayerColor());
           // System.out.println("player roll 1: " + enemyPlayer.getNumbersFromRoll1());
           // System.out.println("player roll 2: " + enemyPlayer.getNumbersFromRoll2());
           // System.out.println("player bar: " + enemyPlayer.getBar());
@@ -584,24 +585,6 @@ public static void gameLoop() {
 
         CLI.draw(board);
 
-        String serverName = "localhost";
-        int port = 6061;
-        try
-        {
-            System.out.println("Connecting to " + serverName + " on port " + port);
-            Socket client = new Socket(serverName, port);
-            System.out.println("Just connected to " + client.getRemoteSocketAddress());
-            OutputStream outToServer = client.getOutputStream();
-            DataOutputStream out = new DataOutputStream(outToServer);
-            out.writeUTF("Hello from "+ client.getLocalSocketAddress());
-            InputStream inFromServer = client.getInputStream();
-            DataInputStream in = new DataInputStream(inFromServer);
-            System.out.println("Server says " + in.readUTF());
-            client.close();
-        }catch(IOException e)
-        {
-            e.printStackTrace();
-        }
 
         if (currentPlayer.getMovesLeft() == 0) {//if you have no turns, you haven't rolled your dice yet,
             dice.rollDice();//you throw the dice.
@@ -706,6 +689,10 @@ public static void gameLoop() {
 
     public static void receiveBoardFromServer(){
         //todo:code receiving board object from server
+    }
+
+    public static void sendRollToServer(){
+
     }
 
 

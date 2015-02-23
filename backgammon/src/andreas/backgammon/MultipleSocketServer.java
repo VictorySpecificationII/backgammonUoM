@@ -5,12 +5,26 @@ import java.io.*;
 import java.util.*;
 
 public class MultipleSocketServer implements Runnable {
+/**
+ *
+ *
+ * what the server wants
+ * -turn
+ * -board
+ * -dice
+ */
 
     private Socket connection;//create socket for connection
     private String TimeStamp;//create timestamp for connection
     private int ID;//create ID of client for connection
     static int port = 6061;//define the port
     static int count = 0;//how many clients have connected
+    public static HashMap<Integer, Integer> deckServerSide  = new HashMap<Integer, Integer>(26);//create deck on server;
+    public static HashMap<Integer, String> colorsServerSide= new HashMap<Integer, String>(26);//create colors for deck on server
+    public static HashMap<Integer, Integer> barServerSide = new HashMap<Integer, Integer>(2);//create a bar on server
+    public static HashMap<Integer, String> barColorsServerSide= new HashMap<Integer, String>(2);//create colors on server
+    public static int turn = 1;//turn for when its time to let the other player know it's their turn
+
 
     public static void main(String[] args) {
 
@@ -64,4 +78,63 @@ public class MultipleSocketServer implements Runnable {
             catch (IOException e){}
         }
     }
+
+    public static void receiveRollC1(Socket server) throws IOException {
+        DataInputStream in = new DataInputStream(server.getInputStream());
+        int rollC1 = in.readInt();
+    }
+
+    public static void receiveRollC2(Socket server) throws IOException{
+        DataInputStream in = new DataInputStream(server.getInputStream());
+        int rollC2 = in.readInt();
+
+    }
+
+    private static void sendBoardToClient(){
+        //todo: code sending objects to client
+    }
+    private static void receiveBoardFromClient(Socket socket){
+        try {
+            //todo: verify function
+            InputStream InputStream = socket.getInputStream();//InputStream from where to receive the map, in case of network you get it from the Socket instance.
+            ObjectInputStream mapInputStream = new ObjectInputStream(InputStream);//define input stream for incoming map
+            deckServerSide =(HashMap<Integer, Integer>)mapInputStream.readObject();//read deck into map
+            mapInputStream.close();//close input stream
+
+            InputStream = socket.getInputStream();//InputStream from where to receive the map, in case of network you get it from the Socket instance.
+            mapInputStream = new ObjectInputStream(InputStream);//define input stream for incoming map
+            colorsServerSide = (HashMap<Integer, String>)mapInputStream.readObject();//read colors into map
+            mapInputStream.close();//close input stream
+
+            InputStream = socket.getInputStream();//InputStream from where to receive the map, in case of network you get it from the Socket instance.
+            mapInputStream = new ObjectInputStream(InputStream);//define input stream for incoming map
+            barServerSide = (HashMap<Integer, Integer>)mapInputStream.readObject();//read bar contents into map
+            mapInputStream.close();//close input stream
+
+            InputStream = socket.getInputStream();//InputStream from where to receive the map, in case of network you get it from the Socket instance.
+            mapInputStream = new ObjectInputStream(InputStream);//define input stream for incoming map
+            barColorsServerSide = (HashMap<Integer, String>)mapInputStream.readObject();//read bar color contents into map
+            mapInputStream.close();//close input stream
+
+            DataInputStream primitiveTypes = new DataInputStream(InputStream);//create data stream for primitive types
+            turn = primitiveTypes.readInt();//read turn
+            primitiveTypes.close();//close input stream
+
+        }
+        catch(IOException e){
+            System.out.println(e);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 }
