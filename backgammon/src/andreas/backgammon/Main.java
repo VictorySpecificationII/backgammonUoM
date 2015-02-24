@@ -245,7 +245,7 @@ public class Main {
             player1.setBar(0);//Lastly, your bar is number 0.
 
             player2.setPlayerNumber(2);//Unlucky him, he's player 2
-            //player2.setYourTurn(0);//It's not his turn, and you let him know.
+            player2.setYourTurn(0);//It's not his turn, and you let him know.
             player2.setPlayerColor("b");//You also let him know that he is moving black rocks.
             player2.setBar(1);//Lastly, his bar is number 1.
 
@@ -280,7 +280,7 @@ public class Main {
 
        else{//OR, you snap out of that and you realize that his number is larger than yours in which case,
             player2.setPlayerNumber(1);//he is player 1,
-           // player2.setYourTurn(1);//and it's his turn, you establish that.
+            player2.setYourTurn(1);//and it's his turn, you establish that.
             player2.setPlayerColor("w");//You let him know that he's playing with white stones,
            player2.setBar(0);//and his bar is number 0.
 

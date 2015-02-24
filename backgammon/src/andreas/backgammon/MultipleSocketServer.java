@@ -2,6 +2,7 @@ package andreas.backgammon;
 
 import java.net.*;
 import java.io.*;
+import java.nio.CharBuffer;
 import java.util.*;
 
 public class MultipleSocketServer implements Runnable {
@@ -11,7 +12,13 @@ public class MultipleSocketServer implements Runnable {
  * what the server wants
  * -turn
  * -board
- * -dice
+ * -dice:
+ *       client 1 has 2 players, p1 and p2. Since I can't change the architecture of the game now, I do it this way:
+ *       client rolls dice. saves it in player1.
+ *       client 2 does the same.
+ *       rolls are sent to the server.
+ *       each one has the second value now.
+ *       they compare and set player numbers.
  */
 
     private Socket connection;//create socket for connection
@@ -19,6 +26,8 @@ public class MultipleSocketServer implements Runnable {
     private int ID;//create ID of client for connection
     static int port = 6061;//define the port
     static int count = 0;//how many clients have connected
+    public static int dice1FromClient = 0;
+    public static int dice2FromClient = 0;
     public static HashMap<Integer, Integer> deckServerSide  = new HashMap<Integer, Integer>(26);//create deck on server;
     public static HashMap<Integer, String> colorsServerSide= new HashMap<Integer, String>(26);//create colors for deck on server
     public static HashMap<Integer, Integer> barServerSide = new HashMap<Integer, Integer>(2);//create a bar on server
@@ -80,19 +89,84 @@ public class MultipleSocketServer implements Runnable {
     }
 
     public static void receiveRollC1(Socket server) throws IOException {
-        DataInputStream in = new DataInputStream(server.getInputStream());
-        int rollC1 = in.readInt();
+        DataInputStream in = new DataInputStream(server.getInputStream());//create stream
+        InputStreamReader isr = new InputStreamReader(in);//create stream reader
+        dice1FromClient = isr.read();//read stream
+        in.close();//close
     }
 
     public static void receiveRollC2(Socket server) throws IOException{
-        DataInputStream in = new DataInputStream(server.getInputStream());
-        int rollC2 = in.readInt();
+        DataInputStream in = new DataInputStream(server.getInputStream());//create stream
+        InputStreamReader isr = new InputStreamReader(in);//create stream reader
+        dice2FromClient = isr.read();//read stream
+        in.close();//close
 
     }
 
-    private static void sendBoardToClient(){
-        //todo: code sending objects to client
+    public static void sendRollC2(Socket server) throws IOException{
+        DataInputStream in = new DataInputStream(server.getInputStream());//create stream
+        InputStreamReader isr = new InputStreamReader(in);//create stream reader
+        dice2FromClient = isr.read();//read stream
+        in.close();//close
     }
+
+
+    public static void receiveTurn(Socket socket) throws IOException {
+        try {
+            DataInputStream in = new DataInputStream(socket.getInputStream());//create stream
+            InputStreamReader isr = new InputStreamReader(in);//create stream reader
+            turn = isr.read();//read stream
+            isr.close();//close
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void sendTurn(Socket socket){
+        try{
+            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+            OutputStreamWriter osw = new OutputStreamWriter(out);
+            osw.write(turn);
+            osw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void sendBoardToClient(Socket socket){
+        try {
+            //todo: verify function
+            OutputStream OutputStream = socket.getOutputStream();//InputStream from where to receive the map, in case of network you get it from the Socket instance.
+            ObjectOutputStream mapOutputStream = new ObjectOutputStream(OutputStream);//define input stream for incoming map
+            mapOutputStream.writeObject(deckServerSide);//read deck into map
+            mapOutputStream.close();//close input stream
+
+            OutputStream = socket.getOutputStream();//InputStream from where to receive the map, in case of network you get it from the Socket instance.
+            mapOutputStream = new ObjectOutputStream(OutputStream);//define input stream for incoming map
+            mapOutputStream.writeObject(colorsServerSide);//read deck into map
+            mapOutputStream.close();//close input stream
+
+            OutputStream = socket.getOutputStream();//InputStream from where to receive the map, in case of network you get it from the Socket instance.
+            mapOutputStream = new ObjectOutputStream(OutputStream);//define input stream for incoming map
+            mapOutputStream.writeObject(barServerSide);//read deck into map
+            mapOutputStream.close();//close input stream
+
+
+            OutputStream = socket.getOutputStream();//InputStream from where to receive the map, in case of network you get it from the Socket instance.
+            mapOutputStream = new ObjectOutputStream(OutputStream);//define input stream for incoming map
+            mapOutputStream.writeObject(barColorsServerSide);//read deck into map
+            mapOutputStream.close();//close input stream
+
+            DataOutputStream primitiveTypes = new DataOutputStream(OutputStream);//create data stream for primitive types
+            OutputStreamWriter osw = new OutputStreamWriter(primitiveTypes);
+            osw.write(turn);
+            primitiveTypes.close();//close input stream
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void receiveBoardFromClient(Socket socket){
         try {
             //todo: verify function
@@ -116,9 +190,6 @@ public class MultipleSocketServer implements Runnable {
             barColorsServerSide = (HashMap<Integer, String>)mapInputStream.readObject();//read bar color contents into map
             mapInputStream.close();//close input stream
 
-            DataInputStream primitiveTypes = new DataInputStream(InputStream);//create data stream for primitive types
-            turn = primitiveTypes.readInt();//read turn
-            primitiveTypes.close();//close input stream
 
         }
         catch(IOException e){
