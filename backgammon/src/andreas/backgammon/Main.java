@@ -212,7 +212,7 @@ public class Main {
         //dice.rollDice();//and throws it.
         //System.out.println("Dice roll for " + player2.getName() + ":" + dice.getDiceRoll2());
         //currentPlayer.setNumbersFromRoll2(dice.getDiceRoll2());//They then register the number they got.
-        sendRollToServer();
+       sendRollToServer();
         //Now you look at your opponent and ask him, "what number did you roll?"
     if (player1.getNumbersFromRoll1() == player2.getNumbersFromRoll2()) {//He then tells you, and you tell him, and you check. If they are equal,
 
@@ -657,43 +657,86 @@ public static void gameLoop() {
         }
     }
 }
-    public static void sendBoardToServer(){
-    //todo: code receiving board object from server
-        //establish connection
-        String destinationIP = "localhost";
-        int port = 6061;
+    public static void receiveRoll(Socket server) throws IOException {
+        DataInputStream in = new DataInputStream(server.getInputStream());//create stream
+        InputStreamReader isr = new InputStreamReader(in);//create stream reader
+        player2.setNumbersFromRoll1(isr.read());//read stream
+        isr.close();
+        in.close();//close
+    }
+
+    public static void sendRoll(Socket server) throws IOException{
+        DataOutputStream in = new DataOutputStream(server.getOutputStream());//create stream
+        OutputStreamWriter osw = new OutputStreamWriter(in);//create stream reader
+        osw.write(currentPlayer.getNumbersFromRoll1());//read stream
+        System.out.println(osw.toString());
+        //osw.close();
+    }
+
+    public static void receiveTurn(Socket socket) throws IOException {
         try {
-            Socket clientSocket = new Socket(destinationIP, port);
-            OutputStream outBox = clientSocket.getOutputStream();
-            ObjectOutputStream out = new ObjectOutputStream(outBox);
-
-            //grab board contents
-            Hashtable<Integer, Integer> outDeck = board.deck;
-            Hashtable<Integer, String> outColors = board.colors;
-            Hashtable<Integer, Integer> outBar = board.bar;
-            Hashtable<Integer, String> outBarColors = board.barColors;
-
-            //serialize and send to server
-            out.writeObject(outDeck);
-            //out.flush();
-            out.writeObject(outColors);
-            //out.flush();
-            out.writeObject(outBar);
-            //out.flush();
-            out.writeObject(outBarColors);
-            //out.flush();
-            clientSocket.close();
-        } catch(IOException e) {
-            System.out.println(e);
-        }    }
-
-    public static void receiveBoardFromServer(){
-        //todo:code receiving board object from server
+            DataInputStream in = new DataInputStream(socket.getInputStream());//create stream
+            InputStreamReader isr = new InputStreamReader(in);//create stream reader
+            currentPlayer.yourTurn = isr.read();//read stream
+            isr.close();
+            in.close();//close
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void sendRollToServer(){
-
+    public static void sendTurn(Socket socket){
+        try{
+            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+            OutputStreamWriter osw = new OutputStreamWriter(out);
+            osw.write(currentPlayer.yourTurn);
+            osw.close();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
+public static void sendRollToServer(){
+    //Sending
+    String host = "localhost";//change for different server
+    int port = 6061;//port for devices to connect to
+    StringBuffer instr = new StringBuffer();
+    String Timestamp;
+    System.out.println("SocketClient initialized succesfully.");
+    try{
+        InetAddress address = InetAddress.getByName(host);//server realizes its own address
+        Socket connection = new Socket(address, port);//establishes a socket for connection on that address, on that port
+        BufferedOutputStream bos = new BufferedOutputStream(connection.getOutputStream());//create output stream
+        OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");//create write for output
+        Timestamp = new Date().toString();//get timestamp of connection
+        String process = "Connected to "+ host +", on port "+port+", at "+Timestamp + (char) 13;
+        osw.write(process);//write to outputstreamwriter
+        osw.flush();//flush anything left in the buffer
+        sendRoll(connection);
+
+
+        //Receiving
+        receiveRoll(connection);
+        BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());//input stream
+        InputStreamReader isr = new InputStreamReader(bis, "US-ASCII");// read input stream
+        int c;//integer 13 in text, remember?
+        while((c = isr.read()) != 13){//while we've not met the EOF
+            instr.append((char) c);//append to the string
+            connection.close();//close socket
+
+        }
+        System.out.println(instr);//print out string
+
+    } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+    } catch (UnknownHostException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
 
 
     public static void main(String args[]) {

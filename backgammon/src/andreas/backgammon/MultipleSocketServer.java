@@ -32,6 +32,7 @@ public class MultipleSocketServer implements Runnable {
     public static HashMap<Integer, String> colorsServerSide= new HashMap<Integer, String>(26);//create colors for deck on server
     public static HashMap<Integer, Integer> barServerSide = new HashMap<Integer, Integer>(2);//create a bar on server
     public static HashMap<Integer, String> barColorsServerSide= new HashMap<Integer, String>(2);//create colors on server
+    public static HashMap<Integer, SocketAddress> connectionsMap = new HashMap(2);//map to keep track of connections
     public static int turn = 1;//turn for when its time to let the other player know it's their turn
 
 
@@ -43,6 +44,7 @@ public class MultipleSocketServer implements Runnable {
             while (true) {//runs forever
                 Socket connection = socket1.accept();//accept the connection
                 Runnable runnable = new MultipleSocketServer(connection, count++);//create a runnable and up the connection count
+                connectionsMap.put(count, connection.getRemoteSocketAddress());
                 Thread thread = new Thread(runnable);//create a thread for it
                 thread.start();//and start it
             }
@@ -68,6 +70,9 @@ public class MultipleSocketServer implements Runnable {
 
             try {
                 Thread.sleep(10000);
+                receiveRoll(connection);
+
+
             }
             catch (Exception e){}
             TimeStamp = new java.util.Date().toString();//create a timestamp for the connection
@@ -82,31 +87,41 @@ public class MultipleSocketServer implements Runnable {
         }
         finally {
             try {
+                System.out.println("Task completed. Exiting...");
                 connection.close();
             }
             catch (IOException e){}
         }
     }
 
-    public static void receiveRollC1(Socket server) throws IOException {
-        DataInputStream in = new DataInputStream(server.getInputStream());//create stream
-        InputStreamReader isr = new InputStreamReader(in);//create stream reader
-        dice1FromClient = isr.read();//read stream
+    public static void receiveRoll(Socket server) throws IOException {
+        if(count == 1) {//one client connected, one connection made
+            DataInputStream in = new DataInputStream(server.getInputStream());//create stream
+            InputStreamReader isr = new InputStreamReader(in);//create stream reader
+            dice1FromClient = isr.read();//read stream
+            in.close();//close
+            System.out.println("value received:" + dice1FromClient);
+            System.out.println(connectionsMap.get(count));//print out log
+        }
+        if (count == 2){//the second client has connected as well
+            DataInputStream in = new DataInputStream(server.getInputStream());//create stream
+            InputStreamReader isr = new InputStreamReader(in);//create stream reader
+            dice2FromClient = isr.read();//read stream
+            in.close();//close
+        }
+    }
+
+    public static void sendRollC1(Socket server) throws IOException{
+        DataOutputStream in = new DataOutputStream(server.getOutputStream());//create stream
+        OutputStreamWriter osw = new OutputStreamWriter(in);//create stream reader
+        osw.write(dice1FromClient);//read stream
         in.close();//close
     }
 
-    public static void receiveRollC2(Socket server) throws IOException{
-        DataInputStream in = new DataInputStream(server.getInputStream());//create stream
-        InputStreamReader isr = new InputStreamReader(in);//create stream reader
-        dice2FromClient = isr.read();//read stream
-        in.close();//close
-
-    }
-
-    public static void sendRollC2(Socket server) throws IOException{
-        DataInputStream in = new DataInputStream(server.getInputStream());//create stream
-        InputStreamReader isr = new InputStreamReader(in);//create stream reader
-        dice2FromClient = isr.read();//read stream
+    public static void sendRollC2(Socket socket) throws IOException{
+        DataOutputStream in = new DataOutputStream(socket.getOutputStream());//create stream
+        OutputStreamWriter osw = new OutputStreamWriter(in);//create stream reader
+        osw.write(dice2FromClient);//read stream
         in.close();//close
     }
 
@@ -189,8 +204,6 @@ public class MultipleSocketServer implements Runnable {
             mapInputStream = new ObjectInputStream(InputStream);//define input stream for incoming map
             barColorsServerSide = (HashMap<Integer, String>)mapInputStream.readObject();//read bar color contents into map
             mapInputStream.close();//close input stream
-
-
         }
         catch(IOException e){
             System.out.println(e);
@@ -198,14 +211,4 @@ public class MultipleSocketServer implements Runnable {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
-
-
-
 }

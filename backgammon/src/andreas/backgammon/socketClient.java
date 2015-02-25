@@ -23,7 +23,7 @@ public class socketClient {
             BufferedOutputStream bos = new BufferedOutputStream(connection.getOutputStream());//create output stream
             OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");//create write for output
             Timestamp = new Date().toString();//get timestamp of connection
-            String process = "Connecting on "+ host +", on port "+port+", at "+Timestamp + (char) 13;
+            String process = "Connected to "+ host +", on port "+port+", at "+Timestamp + (char) 13;
             osw.write(process);//write to outputstreamwriter
             osw.flush();//flush anything left in the buffer
 
