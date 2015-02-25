@@ -108,6 +108,7 @@ public class Main {
     //They setup the board.
     public static void setupBoard(){
         board.setupBoard();//They setup the board and put the rocks in their places while sipping on their frape.
+        CLI.draw(board);
     }
 
     //In this episode of Roadkill, we check whether the player tends to forget his color. We check whether
@@ -663,6 +664,7 @@ public static void gameLoop() {
         System.out.println(player2.getNumbersFromRoll1());
         while (player2.getNumbersFromRoll1() == 0) {
             System.out.println("Player 2 has yet to roll his dice..\b.");
+
         }
 
         if(player2.getNumbersFromRoll1() != 0){
@@ -726,7 +728,7 @@ public static void sendRollToServer(){
 
 
         //Receiving
-        receiveRoll(connection);
+        //receiveRoll(connection);
         BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());//input stream
         InputStreamReader isr = new InputStreamReader(bis, "US-ASCII");// read input stream
         int c;//integer 13 in text, remember?

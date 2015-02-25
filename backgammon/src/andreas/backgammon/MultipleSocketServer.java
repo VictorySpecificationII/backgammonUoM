@@ -71,6 +71,7 @@ public class MultipleSocketServer implements Runnable {
             try {
                 Thread.sleep(10000);
                 receiveRoll(connection);
+                System.out.println("Count so far is "+ count);
                 //todo:check logic again
                 //if(count == 2){
                 //    sendRollC1(connection);
