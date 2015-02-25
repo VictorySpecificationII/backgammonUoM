@@ -660,7 +660,15 @@ public static void gameLoop() {
     public static void receiveRoll(Socket server) throws IOException {
         DataInputStream in = new DataInputStream(server.getInputStream());//create stream
         InputStreamReader isr = new InputStreamReader(in);//create stream reader
-        player2.setNumbersFromRoll1(isr.read());//read stream
+        System.out.println(player2.getNumbersFromRoll1());
+        while (player2.getNumbersFromRoll1() == 0) {
+            System.out.println("Player 2 has yet to roll his dice..\b.");
+        }
+
+        if(player2.getNumbersFromRoll1() != 0){
+            //todo: this doesnt make sense, make function that gets the value from the server
+        player2.setNumbersFromRoll1(isr.read());//read stream todo:stops here when following a breakpoint, make sure server has both numbers before executing this
+    }
         isr.close();
         in.close();//close
     }
@@ -669,7 +677,7 @@ public static void gameLoop() {
         DataOutputStream in = new DataOutputStream(server.getOutputStream());//create stream
         OutputStreamWriter osw = new OutputStreamWriter(in);//create stream reader
         osw.write(currentPlayer.getNumbersFromRoll1());//read stream
-        System.out.println(osw.toString());
+        System.out.println(currentPlayer.getNumbersFromRoll1());
         //osw.close();
     }
 

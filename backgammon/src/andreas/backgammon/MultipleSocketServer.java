@@ -71,6 +71,14 @@ public class MultipleSocketServer implements Runnable {
             try {
                 Thread.sleep(10000);
                 receiveRoll(connection);
+                //todo:check logic again
+                //if(count == 2){
+                //    sendRollC1(connection);
+                //    sendRollC2(connection);
+               // }
+                //else{
+                //    System.out.println("Client 2 has yet to send his roll in");
+               // }
 
 
             }
@@ -102,7 +110,7 @@ public class MultipleSocketServer implements Runnable {
             in.close();//close
             System.out.println("value received:" + dice1FromClient);
             System.out.println(connectionsMap.get(count));//print out log
-        }
+        }//This works assuming one client connects and then the other connects. Now, for 2 same connections, it wont.
         if (count == 2){//the second client has connected as well
             DataInputStream in = new DataInputStream(server.getInputStream());//create stream
             InputStreamReader isr = new InputStreamReader(in);//create stream reader
@@ -112,6 +120,8 @@ public class MultipleSocketServer implements Runnable {
     }
 
     public static void sendRollC1(Socket server) throws IOException{
+        //send roll from client 2 to client 1
+        //grab clients IP from log, establish connection, send stuff
         DataOutputStream in = new DataOutputStream(server.getOutputStream());//create stream
         OutputStreamWriter osw = new OutputStreamWriter(in);//create stream reader
         osw.write(dice1FromClient);//read stream
@@ -119,6 +129,8 @@ public class MultipleSocketServer implements Runnable {
     }
 
     public static void sendRollC2(Socket socket) throws IOException{
+        //send roll from client 1 to client 2
+        //grab clients IP from log, establish connection, send stuff
         DataOutputStream in = new DataOutputStream(socket.getOutputStream());//create stream
         OutputStreamWriter osw = new OutputStreamWriter(in);//create stream reader
         osw.write(dice2FromClient);//read stream
