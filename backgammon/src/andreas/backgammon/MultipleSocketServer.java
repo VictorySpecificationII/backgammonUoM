@@ -6,20 +6,7 @@ import java.nio.CharBuffer;
 import java.util.*;
 
 public class MultipleSocketServer implements Runnable {
-/**
- *
- *
- * what the server wants
- * -turn
- * -board
- * -dice:
- *       client 1 has 2 players, p1 and p2. Since I can't change the architecture of the game now, I do it this way:
- *       client rolls dice. saves it in player1.
- *       client 2 does the same.
- *       rolls are sent to the server.
- *       each one has the second value now.
- *       they compare and set player numbers.
- */
+
 
     private Socket connection;//create socket for connection
     private String TimeStamp;//create timestamp for connection
@@ -34,110 +21,72 @@ public class MultipleSocketServer implements Runnable {
     public static HashMap<Integer, String> barColorsServerSide= new HashMap<Integer, String>(2);//create colors on server
     public static HashMap<Integer, SocketAddress> connectionsMap = new HashMap(2);//map to keep track of connections
     public static int turn = 1;//turn for when its time to let the other player know it's their turn
+    public static int dice1 = 0;
+    public static int dice2 = 0;
 
 
-    public static void main(String[] args) {
 
-        try{
-            ServerSocket socket1 = new ServerSocket(port);//create a new serversocket
-            System.out.println("MultipleSocketServer Initialized");
-            while (true) {//runs forever
-                Socket connection = socket1.accept();//accept the connection
-                Runnable runnable = new MultipleSocketServer(connection, count++);//create a runnable and up the connection count
-                connectionsMap.put(count, connection.getRemoteSocketAddress());
-                Thread thread = new Thread(runnable);//create a thread for it
-                thread.start();//and start it
-            }
-        }
-        catch (Exception e) {}
-    }
     //object for creating runnables
     MultipleSocketServer(Socket s, int i) {
         this.connection = s;
         this.ID = i;
+
     }
 
     public void run() {
         try {
-            BufferedInputStream is = new BufferedInputStream(connection.getInputStream());//create input stream
-            InputStreamReader isr = new InputStreamReader(is);//create a reader
-            int character;//variable for characters
-            StringBuffer process = new StringBuffer();//create a string buffer for printing
-            while((character = isr.read()) != 13) {//while !EOF
-                process.append((char)character);//add to the string
+            BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
+            InputStreamReader isr = new InputStreamReader(is);
+            int character;
+            StringBuffer process = new StringBuffer();
+            while((character = isr.read()) != 13) {
+                process.append((char)character);
             }
-            System.out.println(process);//print it out at the end
-
+            System.out.println(process);
             try {
-                Thread.sleep(10000);
-                receiveRoll(connection);
-                System.out.println("Count so far is "+ count);
-                //todo:check logic again
-                //if(count == 2){
-                //    sendRollC1(connection);
-                //    sendRollC2(connection);
-               // }
-                //else{
-                //    System.out.println("Client 2 has yet to send his roll in");
-               // }
-
-
+            sendRoll(connection);
             }
             catch (Exception e){}
-            TimeStamp = new java.util.Date().toString();//create a timestamp for the connection
-            String returnCode = "MultipleSocketServer responded at "+ TimeStamp + (char) 13;//the code to be sent back to client
-            BufferedOutputStream os = new BufferedOutputStream(connection.getOutputStream());//create output stream
-            OutputStreamWriter osw = new OutputStreamWriter(os, "US-ASCII");//create a writer for the stream
-            osw.write(returnCode);//write the return code and send it
-            osw.flush();//and flush the buffer
+            TimeStamp = new java.util.Date().toString();
+            String returnCode = "MultipleSocketServer responded at "+ TimeStamp + (char) 13;
+            BufferedOutputStream os = new BufferedOutputStream(connection.getOutputStream());
+            OutputStreamWriter osw = new OutputStreamWriter(os, "US-ASCII");
+            osw.write(returnCode);
+            osw.flush();
         }
         catch (Exception e) {
             System.out.println(e);
         }
         finally {
             try {
-                System.out.println("Task completed. Exiting...");
                 connection.close();
             }
             catch (IOException e){}
         }
     }
 
-    public static void receiveRoll(Socket server) throws IOException {
-        if(count == 1) {//one client connected, one connection made
-            DataInputStream in = new DataInputStream(server.getInputStream());//create stream
-            InputStreamReader isr = new InputStreamReader(in);//create stream reader
-            dice1FromClient = isr.read();//read stream
-            in.close();//close
-            System.out.println("value received:" + dice1FromClient);
-            System.out.println(connectionsMap.get(count));//print out log
-        }//This works assuming one client connects and then the other connects. Now, for 2 same connections, it wont.
-        if (count == 2){//the second client has connected as well
-            DataInputStream in = new DataInputStream(server.getInputStream());//create stream
-            InputStreamReader isr = new InputStreamReader(in);//create stream reader
-            dice2FromClient = isr.read();//read stream
-            in.close();//close
+    private static void calculateDice(){
+        backgammonDice serverDice = new backgammonDice();
+        while(dice1 == dice2) {
+            serverDice.rollDice();
+            dice1 = serverDice.getDiceRoll1();
+            dice2 = serverDice.getDiceRoll2();
+            System.out.println("Dice 1: " + dice1);
+            System.out.println("Dice 2: " + dice2);
         }
     }
 
-    public static void sendRollC1(Socket server) throws IOException{
-        //send roll from client 2 to client 1
-        //grab clients IP from log, establish connection, send stuff
-        DataOutputStream in = new DataOutputStream(server.getOutputStream());//create stream
-        OutputStreamWriter osw = new OutputStreamWriter(in);//create stream reader
-        osw.write(dice1FromClient);//read stream
-        in.close();//close
-    }
+    private static void sendRoll(Socket socket) throws IOException {
+        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+        OutputStreamWriter osw = new OutputStreamWriter(out);
+        osw.write(dice1);
+        System.out.println("Value 1 sent");
+        osw.flush();
+        System.out.println("Value 2 sent");
+        osw.write(dice2);
+        osw.flush();
 
-    public static void sendRollC2(Socket socket) throws IOException{
-        //send roll from client 1 to client 2
-        //grab clients IP from log, establish connection, send stuff
-        DataOutputStream in = new DataOutputStream(socket.getOutputStream());//create stream
-        OutputStreamWriter osw = new OutputStreamWriter(in);//create stream reader
-        osw.write(dice2FromClient);//read stream
-        in.close();//close
-    }
-
+     }
 
     public static void receiveTurn(Socket socket) throws IOException {
         try {
@@ -224,4 +173,27 @@ public class MultipleSocketServer implements Runnable {
             e.printStackTrace();
         }
     }
+
+    public static void main(String[] args) {
+
+        try{
+
+            ServerSocket socket = new ServerSocket(port);//create a new serversocket
+            System.out.println("MultipleSocketServer Initialized");
+            calculateDice();
+            while (true) {//runs forever
+                Socket connection = socket.accept();//accept the connection
+                Runnable runnable = new MultipleSocketServer(connection, count++);//create a runnable and up the connection count
+                if(connectionsMap.containsValue(connection.getRemoteSocketAddress()))
+                    continue;
+                else
+                    connectionsMap.put(count++, connection.getRemoteSocketAddress());
+                System.out.println(connectionsMap.toString());
+                Thread thread = new Thread(runnable);//create a thread for it
+                thread.start();//and start it
+            }
+        }
+        catch (Exception e) {}
+    }
+
 }
