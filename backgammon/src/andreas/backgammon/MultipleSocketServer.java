@@ -24,7 +24,7 @@ public class MultipleSocketServer implements Runnable {
     public static int dice1 = 0;
     public static int dice2 = 0;
     public static boolean firstConnection = true;//after first client connects, reverse the numbers
-
+    public static boolean doAgain = true;//for sendRoll
 
 
     //object for creating runnables
@@ -45,7 +45,12 @@ public class MultipleSocketServer implements Runnable {
             }
             System.out.println(process);
             try {
-            sendRoll(connection);
+                if(doAgain) {
+                    sendRoll(connection);
+                }
+                else {
+                    System.out.println("It skipped sendRoll");
+                }
             }
             catch (Exception e){}
             TimeStamp = new java.util.Date().toString();
@@ -97,6 +102,8 @@ public class MultipleSocketServer implements Runnable {
             osw.write(dice1);
             osw.flush();
             System.out.println("Else clause in sendRoll executed");
+            doAgain = false;//so it won't send anything again everytime the thread is ran
+            System.out.println("doAgain turned to false");
         }
         else
             System.out.println("None executed in sendRoll");
