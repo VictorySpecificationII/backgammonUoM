@@ -581,7 +581,11 @@ public static void gameLoop() {
     Scanner reader = new Scanner(System.in);
 
     while ((board.gameOver() == 0) && (currentPlayer.yourTurn == 1)) {//If the game hasn't ended and it's still your turn,
-
+        if(currentPlayer.getName().equals("Enemy")){
+           continue;
+        }
+        else
+        System.out.println("Your turn, go!");
         CLI.draw(board);
 
 
@@ -657,8 +661,6 @@ public static void gameLoop() {
     }
 }
 
-
-
     public static void receiveTurn(Socket socket) throws IOException {
         try {
             DataInputStream in = new DataInputStream(socket.getInputStream());//create stream
@@ -683,48 +685,6 @@ public static void gameLoop() {
         }
     }
 
-
-public static void sendRollToServer(){
-    //Sending
-    String host = "localhost";//change for different server
-    int port = 6061;//port for devices to connect to
-    StringBuffer instr = new StringBuffer();
-    String Timestamp;
-    System.out.println("SocketClient initialized succesfully.");
-    try{
-        InetAddress address = InetAddress.getByName(host);//server realizes its own address
-        Socket connection = new Socket(address, port);//establishes a socket for connection on that address, on that port
-        BufferedOutputStream bos = new BufferedOutputStream(connection.getOutputStream());//create output stream to send message
-        OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");//create write for output message
-        Timestamp = new Date().toString();//get timestamp of connection
-        String process = "SEND: Connected to "+ host +", on port "+port+", at "+Timestamp + (char) 13;
-        osw.write(process);//write to server
-        osw.flush();//flush anything left in the buffer
-       // DataOutputStream in = new DataOutputStream(connection.getOutputStream());//create stream
-       // osw = new OutputStreamWriter(in);//create stream reader
-        //osw.write(currentPlayer.getNumbersFromRoll1());//read stream
-        //osw.close();
-
-        //Receiving
-        BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());//input stream
-        InputStreamReader isr = new InputStreamReader(bis, "US-ASCII");// read input stream
-        int c = 0;//integer 13 in text, remember?
-        while((c = isr.read()) != 13){//while we've not met the EOF
-            instr.append((char) c);//append to the string
-
-       }
-        //System.out.println(instr);//print out string
-        System.out.println("Dice sent.");
-        connection.close();//close socket
-
-    } catch (UnsupportedEncodingException e) {
-        e.printStackTrace();
-    } catch (UnknownHostException e) {
-        e.printStackTrace();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
 
 public static void receiveRollFromServer(){
     //Sending

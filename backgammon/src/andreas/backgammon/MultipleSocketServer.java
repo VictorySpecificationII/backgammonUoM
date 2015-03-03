@@ -23,6 +23,7 @@ public class MultipleSocketServer implements Runnable {
     public static int turn = 1;//turn for when its time to let the other player know it's their turn
     public static int dice1 = 0;
     public static int dice2 = 0;
+    public static boolean firstConnection = true;//after first client connects, reverse the numbers
 
 
 
@@ -79,12 +80,26 @@ public class MultipleSocketServer implements Runnable {
     private static void sendRoll(Socket socket) throws IOException {
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         OutputStreamWriter osw = new OutputStreamWriter(out);
-        osw.write(dice1);
-        System.out.println("Value 1 sent");
-        osw.flush();
-        System.out.println("Value 2 sent");
-        osw.write(dice2);
-        osw.flush();
+        if (firstConnection == true){
+            osw.write(dice1);
+            System.out.println("Value 1 sent");
+            osw.flush();
+            System.out.println("Value 2 sent");
+            osw.write(dice2);
+            osw.flush();
+            firstConnection = false;
+        }
+        else if(firstConnection == false){
+            osw.write(dice2);
+            System.out.println("Value 2 sent");
+            osw.flush();
+            System.out.println("Value 1 sent");
+            osw.write(dice1);
+            osw.flush();
+            System.out.println("Else clause in sendRoll executed");
+        }
+        else
+            System.out.println("None executed in sendRoll");
 
      }
 
@@ -187,7 +202,7 @@ public class MultipleSocketServer implements Runnable {
                 if(connectionsMap.containsValue(connection.getRemoteSocketAddress()))
                     continue;
                 else
-                    connectionsMap.put(count++, connection.getRemoteSocketAddress());
+                    connectionsMap.put(count, connection.getRemoteSocketAddress());
                 System.out.println(connectionsMap.toString());
                 Thread thread = new Thread(runnable);//create a thread for it
                 thread.start();//and start it
