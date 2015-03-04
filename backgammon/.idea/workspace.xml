@@ -28,13 +28,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2737">
-              <caret line="23" column="33" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.33333334" vertical-offset="2818" max-vertical-offset="4148">
+              <caret line="714" column="20" selection-start-line="714" selection-start-column="20" selection-end-line="714" selection-end-column="20" />
               <folding>
                 <element signature="method#makeMoves#0;class#Main#0" expanded="false" />
+                <element signature="method#sendBoardToServer#0;class#Main#0" expanded="false" />
+                <element signature="method#receiveBoardFromServer#0;class#Main#0" expanded="false" />
                 <element signature="method#setupBoard#0;class#Main#0" expanded="false" />
                 <element signature="method#isCurrentRockAllowed#0;class#Main#0" expanded="false" />
                 <element signature="method#isCurrentMoveLegit#0;class#Main#0" expanded="false" />
@@ -42,7 +44,6 @@
                 <element signature="method#getOffTheBarFirst#0;class#Main#0" expanded="false" />
                 <element signature="method#bearOffPossible#0;class#Main#0" expanded="false" />
                 <element signature="method#bearOff#0;class#Main#0" expanded="false" />
-                <element signature="method#gameLoop#0;class#Main#0" expanded="false" />
                 <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
                 <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
               </folding>
@@ -53,8 +54,8 @@
       <file leaf-file-name="Client2.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/Client2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="13073">
-              <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="13668">
+              <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,22 +63,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="backgammonBoard.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/backgammonBoard.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2312" max-vertical-offset="2975">
-              <caret line="136" column="0" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MultipleSocketServer.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="MultipleSocketServer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/MultipleSocketServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.5935829" vertical-offset="1803" max-vertical-offset="3791">
-              <caret line="52" column="17" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
-              <folding />
+            <state vertical-scroll-proportion="-2.9230769" vertical-offset="1284" max-vertical-offset="1649">
+              <caret line="111" column="6" selection-start-line="111" selection-start-column="6" selection-end-line="111" selection-end-column="6" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#616#634#0" expanded="true" />
+                <element signature="e#736#753#0" expanded="true" />
+                <element signature="e#864#882#0" expanded="true" />
+                <element signature="e#986#1003#0" expanded="true" />
+                <element signature="method#MultipleSocketServer#0;class#MultipleSocketServer#0" expanded="false" />
+                <element signature="method#sendRoll#0;class#MultipleSocketServer#0" expanded="false" />
+                <element signature="method#receiveTurn#0;class#MultipleSocketServer#0" expanded="false" />
+                <element signature="method#sendTurn#0;class#MultipleSocketServer#0" expanded="false" />
+                <element signature="method#sendBoardToClient#0;class#MultipleSocketServer#0" expanded="false" />
+                <element signature="method#receiveBoardFromClient#0;class#MultipleSocketServer#0" expanded="false" />
+                <element signature="method#main#0;class#MultipleSocketServer#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -85,8 +89,8 @@
       <file leaf-file-name="CLI.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/CLI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="1479">
-              <caret line="7" column="51" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="1479">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -95,7 +99,7 @@
       <file leaf-file-name="OfflinePvPClient.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/OfflinePvPClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="436" max-vertical-offset="14212">
+            <state vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="13991">
               <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
               <folding />
             </state>
@@ -143,10 +147,10 @@
         <option value="$PROJECT_DIR$/src/andreas/backgammon/backgammonServer.java" />
         <option value="$PROJECT_DIR$/src/andreas/backgammon/socketClient.java" />
         <option value="$PROJECT_DIR$/src/andreas/backgammon/OfflinePvPClient.java" />
-        <option value="$PROJECT_DIR$/src/andreas/backgammon/Main.java" />
-        <option value="$PROJECT_DIR$/src/andreas/backgammon/Client2.java" />
         <option value="$PROJECT_DIR$/src/andreas/backgammon/test3.java" />
+        <option value="$PROJECT_DIR$/src/andreas/backgammon/Client2.java" />
         <option value="$PROJECT_DIR$/src/andreas/backgammon/MultipleSocketServer.java" />
+        <option value="$PROJECT_DIR$/src/andreas/backgammon/Main.java" />
       </list>
     </option>
   </component>
@@ -195,7 +199,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -206,48 +210,7 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="backgammon" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="backgammon" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="backgammon" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="backgammon" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="backgammon" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="backgammon" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="GoToClass.includeLibraries" value="false" />
@@ -283,7 +246,7 @@
       <recent name="andreas.backgammon" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Client2">
+  <component name="RunManager" selected="Application.Main">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="andreas.backgammon.Main" />
@@ -517,8 +480,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.Client2" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Client2" />
         <item index="2" class="java.lang.String" itemvalue="Application.OfflinePvPClient" />
         <item index="3" class="java.lang.String" itemvalue="Application.socketClient" />
         <item index="4" class="java.lang.String" itemvalue="Application.SingleSocketServer" />
@@ -543,7 +506,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -553,18 +516,18 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32663316" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20347957" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26086956" sideWeight="0.6565809" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32718122" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35953176" sideWeight="0.56732225" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25585285" sideWeight="0.18078668" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16414523" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32107022" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.319398" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19213313" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26588628" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19213313" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25585285" sideWeight="0.81921333" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16100323" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -583,19 +546,19 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32663316" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20347957" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26086956" sideWeight="0.6565809" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32718122" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16414523" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32718122" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32274246" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32107022" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19213313" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2657005" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1923077" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -616,30 +579,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/andreas/backgammon/Main.java</url>
-          <line>753</line>
-          <properties />
-          <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/andreas/backgammon/MultipleSocketServer.java</url>
-          <line>203</line>
-          <properties />
-          <option name="timeStamp" value="64" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/andreas/backgammon/Main.java</url>
-          <line>582</line>
-          <properties />
-          <option name="timeStamp" value="65" />
-        </line-breakpoint>
-      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="66" />
+      <option name="time" value="72" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -647,6 +590,14 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/OfflinePvPClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="436" max-vertical-offset="14212">
+          <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/backgammonPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="612">
@@ -667,6 +618,8 @@
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
             <element signature="method#makeMoves#0;class#Main#0" expanded="false" />
+            <element signature="method#sendBoardToServer#0;class#Main#0" expanded="false" />
+            <element signature="method#receiveBoardFromServer#0;class#Main#0" expanded="false" />
             <element signature="method#setupBoard#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentRockAllowed#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentMoveLegit#0;class#Main#0" expanded="false" />
@@ -674,7 +627,6 @@
             <element signature="method#getOffTheBarFirst#0;class#Main#0" expanded="false" />
             <element signature="method#bearOffPossible#0;class#Main#0" expanded="false" />
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
-            <element signature="method#gameLoop#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
           </folding>
@@ -687,6 +639,8 @@
           <caret line="8" column="60" selection-start-line="8" selection-start-column="60" selection-end-line="8" selection-end-column="60" />
           <folding>
             <element signature="method#makeMoves#0;class#Main#0" expanded="false" />
+            <element signature="method#sendBoardToServer#0;class#Main#0" expanded="false" />
+            <element signature="method#receiveBoardFromServer#0;class#Main#0" expanded="false" />
             <element signature="method#setupBoard#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentRockAllowed#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentMoveLegit#0;class#Main#0" expanded="false" />
@@ -694,7 +648,6 @@
             <element signature="method#getOffTheBarFirst#0;class#Main#0" expanded="false" />
             <element signature="method#bearOffPossible#0;class#Main#0" expanded="false" />
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
-            <element signature="method#gameLoop#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
           </folding>
@@ -721,6 +674,8 @@
           <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
           <folding>
             <element signature="method#makeMoves#0;class#Main#0" expanded="false" />
+            <element signature="method#sendBoardToServer#0;class#Main#0" expanded="false" />
+            <element signature="method#receiveBoardFromServer#0;class#Main#0" expanded="false" />
             <element signature="method#setupBoard#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentRockAllowed#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentMoveLegit#0;class#Main#0" expanded="false" />
@@ -728,7 +683,6 @@
             <element signature="method#getOffTheBarFirst#0;class#Main#0" expanded="false" />
             <element signature="method#bearOffPossible#0;class#Main#0" expanded="false" />
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
-            <element signature="method#gameLoop#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
           </folding>
@@ -755,6 +709,8 @@
           <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
           <folding>
             <element signature="method#makeMoves#0;class#Main#0" expanded="false" />
+            <element signature="method#sendBoardToServer#0;class#Main#0" expanded="false" />
+            <element signature="method#receiveBoardFromServer#0;class#Main#0" expanded="false" />
             <element signature="method#setupBoard#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentRockAllowed#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentMoveLegit#0;class#Main#0" expanded="false" />
@@ -762,7 +718,6 @@
             <element signature="method#getOffTheBarFirst#0;class#Main#0" expanded="false" />
             <element signature="method#bearOffPossible#0;class#Main#0" expanded="false" />
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
-            <element signature="method#gameLoop#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
           </folding>
@@ -789,6 +744,8 @@
           <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
           <folding>
             <element signature="method#makeMoves#0;class#Main#0" expanded="false" />
+            <element signature="method#sendBoardToServer#0;class#Main#0" expanded="false" />
+            <element signature="method#receiveBoardFromServer#0;class#Main#0" expanded="false" />
             <element signature="method#setupBoard#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentRockAllowed#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentMoveLegit#0;class#Main#0" expanded="false" />
@@ -796,7 +753,6 @@
             <element signature="method#getOffTheBarFirst#0;class#Main#0" expanded="false" />
             <element signature="method#bearOffPossible#0;class#Main#0" expanded="false" />
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
-            <element signature="method#gameLoop#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
           </folding>
@@ -823,6 +779,8 @@
           <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
           <folding>
             <element signature="method#makeMoves#0;class#Main#0" expanded="false" />
+            <element signature="method#sendBoardToServer#0;class#Main#0" expanded="false" />
+            <element signature="method#receiveBoardFromServer#0;class#Main#0" expanded="false" />
             <element signature="method#setupBoard#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentRockAllowed#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentMoveLegit#0;class#Main#0" expanded="false" />
@@ -830,7 +788,6 @@
             <element signature="method#getOffTheBarFirst#0;class#Main#0" expanded="false" />
             <element signature="method#bearOffPossible#0;class#Main#0" expanded="false" />
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
-            <element signature="method#gameLoop#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
           </folding>
@@ -857,6 +814,8 @@
           <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
           <folding>
             <element signature="method#makeMoves#0;class#Main#0" expanded="false" />
+            <element signature="method#sendBoardToServer#0;class#Main#0" expanded="false" />
+            <element signature="method#receiveBoardFromServer#0;class#Main#0" expanded="false" />
             <element signature="method#setupBoard#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentRockAllowed#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentMoveLegit#0;class#Main#0" expanded="false" />
@@ -864,7 +823,6 @@
             <element signature="method#getOffTheBarFirst#0;class#Main#0" expanded="false" />
             <element signature="method#bearOffPossible#0;class#Main#0" expanded="false" />
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
-            <element signature="method#gameLoop#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
           </folding>
@@ -891,6 +849,8 @@
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding>
             <element signature="method#makeMoves#0;class#Main#0" expanded="false" />
+            <element signature="method#sendBoardToServer#0;class#Main#0" expanded="false" />
+            <element signature="method#receiveBoardFromServer#0;class#Main#0" expanded="false" />
             <element signature="method#setupBoard#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentRockAllowed#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentMoveLegit#0;class#Main#0" expanded="false" />
@@ -898,7 +858,6 @@
             <element signature="method#getOffTheBarFirst#0;class#Main#0" expanded="false" />
             <element signature="method#bearOffPossible#0;class#Main#0" expanded="false" />
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
-            <element signature="method#gameLoop#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
           </folding>
@@ -925,6 +884,8 @@
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
             <element signature="method#makeMoves#0;class#Main#0" expanded="false" />
+            <element signature="method#sendBoardToServer#0;class#Main#0" expanded="false" />
+            <element signature="method#receiveBoardFromServer#0;class#Main#0" expanded="false" />
             <element signature="method#setupBoard#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentRockAllowed#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentMoveLegit#0;class#Main#0" expanded="false" />
@@ -932,7 +893,6 @@
             <element signature="method#getOffTheBarFirst#0;class#Main#0" expanded="false" />
             <element signature="method#bearOffPossible#0;class#Main#0" expanded="false" />
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
-            <element signature="method#gameLoop#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
           </folding>
@@ -959,6 +919,8 @@
           <caret line="0" column="27" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
           <folding>
             <element signature="method#makeMoves#0;class#Main#0" expanded="false" />
+            <element signature="method#sendBoardToServer#0;class#Main#0" expanded="false" />
+            <element signature="method#receiveBoardFromServer#0;class#Main#0" expanded="false" />
             <element signature="method#setupBoard#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentRockAllowed#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentMoveLegit#0;class#Main#0" expanded="false" />
@@ -966,7 +928,6 @@
             <element signature="method#getOffTheBarFirst#0;class#Main#0" expanded="false" />
             <element signature="method#bearOffPossible#0;class#Main#0" expanded="false" />
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
-            <element signature="method#gameLoop#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
           </folding>
@@ -1071,22 +1032,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/OfflinePvPClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="436" max-vertical-offset="14212">
-          <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/CLI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1122" max-vertical-offset="1479">
-          <caret line="7" column="51" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/socketClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="146" max-vertical-offset="918">
@@ -1109,12 +1054,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/OfflinePvPClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="436" max-vertical-offset="14212">
+          <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/Client2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="13668">
+          <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/CLI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="1479">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/MultipleSocketServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.9230769" vertical-offset="1284" max-vertical-offset="1649">
+          <caret line="111" column="6" selection-start-line="111" selection-start-column="6" selection-end-line="111" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#616#634#0" expanded="true" />
+            <element signature="e#736#753#0" expanded="true" />
+            <element signature="e#864#882#0" expanded="true" />
+            <element signature="e#986#1003#0" expanded="true" />
+            <element signature="method#MultipleSocketServer#0;class#MultipleSocketServer#0" expanded="false" />
+            <element signature="method#sendRoll#0;class#MultipleSocketServer#0" expanded="false" />
+            <element signature="method#receiveTurn#0;class#MultipleSocketServer#0" expanded="false" />
+            <element signature="method#sendTurn#0;class#MultipleSocketServer#0" expanded="false" />
+            <element signature="method#sendBoardToClient#0;class#MultipleSocketServer#0" expanded="false" />
+            <element signature="method#receiveBoardFromClient#0;class#MultipleSocketServer#0" expanded="false" />
+            <element signature="method#main#0;class#MultipleSocketServer#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2737">
-          <caret line="23" column="33" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="2818" max-vertical-offset="4148">
+          <caret line="714" column="20" selection-start-line="714" selection-start-column="20" selection-end-line="714" selection-end-column="20" />
           <folding>
             <element signature="method#makeMoves#0;class#Main#0" expanded="false" />
+            <element signature="method#sendBoardToServer#0;class#Main#0" expanded="false" />
+            <element signature="method#receiveBoardFromServer#0;class#Main#0" expanded="false" />
             <element signature="method#setupBoard#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentRockAllowed#0;class#Main#0" expanded="false" />
             <element signature="method#isCurrentMoveLegit#0;class#Main#0" expanded="false" />
@@ -1122,28 +1116,9 @@
             <element signature="method#getOffTheBarFirst#0;class#Main#0" expanded="false" />
             <element signature="method#bearOffPossible#0;class#Main#0" expanded="false" />
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
-            <element signature="method#gameLoop#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/Client2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="13073">
-          <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/MultipleSocketServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.5935829" vertical-offset="1803" max-vertical-offset="3791">
-          <caret line="52" column="17" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>

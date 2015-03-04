@@ -44,6 +44,11 @@ public class Main {
     public static boolean bearOff = false;
     //public static boolean hit = false;
     public static Long uuid;
+    public static int firstRound = 1;
+    public static int targetVectorToBearOff;
+    public static int targetVectorToLandOn;
+    public static int goShorty = 0;
+
     //--------------------------------------------------------------------
     //So here you are: You've setup the deck, had your initial roll, and you hit the game loop.
     //You've thrown your dice, determined your moves, chosen your rock, you've check if it can move,
@@ -73,6 +78,12 @@ public class Main {
         System.out.println("Moves left for "+ currentPlayer.getName() + ": "+currentPlayer.getMovesLeft());
         //If you've played your last move, and you have no moves left,
         if(currentPlayer.getMovesLeft() == 0){
+            try {
+                sendTurn();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             twoMoves = false;//you no longer have two moves,
             fourMoves = false;//you no longer have four moves.
             if(currentPlayer.getPlayerNumber() == 1){//If the current player is the first player
@@ -84,15 +95,19 @@ public class Main {
                 backgammonPlayer tempPlayer;//-------▽
                 tempPlayer = currentPlayer; //------>SWAP PLAYERS MAGIC
                 currentPlayer = enemyPlayer;//-------△
+
                 System.out.println("Current player: " + currentPlayer.getName());
                 enemyPlayer = tempPlayer;//Now that their mate is the current player they are the enemy player.
                 System.out.println("Enemy player: " + enemyPlayer.getName());
+                sendBoardToServer();
+
 
             }//OR, the current player was player 2 and not player 1
             else if(currentPlayer.getPlayerNumber() == 2){//If the current player is the second player
                // System.out.println("second if");
 
                 currentPlayer.setYourTurn(0);//it is no longer their turn but
+
                 enemyPlayer.setYourTurn(1);//it is their mate's turn.
 
                 backgammonPlayer tempPlayer;//-------▽
@@ -102,10 +117,17 @@ public class Main {
                 System.out.println("Current player: " + currentPlayer.getName());
                 enemyPlayer = tempPlayer;//Now that their mate is the current player they are the enemy player.
                 System.out.println("Enemy player: " + enemyPlayer.getName());
+                sendBoardToServer();
             }
         }
     }
 
+    private static void sendBoardToServer() {
+    }
+
+    private static void receiveBoardFromServer(){
+
+    }
     //They setup the board.
     public static void setupBoard(){
         board.setupBoard();//They setup the board and put the rocks in their places while sipping on their frape.
@@ -129,7 +151,6 @@ public class Main {
         System.out.println("Rock not allowed to move");
         return false;//It can't be moved otherwise.
     }
-
 
     public static boolean isCurrentMoveLegit(backgammonPlayer currentPlayer, int currentRock, int currentRoll) {
     //Now, you check whether the move you chose is legit.
@@ -210,7 +231,7 @@ public class Main {
         System.out.println("Dice roll for " + tempPlayer.getName() + ":" + dice.getDiceRoll1());
         currentPlayer.setNumbersFromRoll1(dice.getDiceRoll1());//and the first player registers the first number.
 
-       receiveRollFromServer();
+        receiveRollFromServer();
 
         //Now you look at your opponent and ask him, "what number did you roll?"
     if (tempPlayer.getNumbersFromRoll1() == player2.getNumbersFromRoll1()) {//He then tells you, and you tell him, and you check. If they are equal,
@@ -238,6 +259,7 @@ public class Main {
             player1.setYourTurn(1);//It's obviously your turn, so you establish that,
             player1.setPlayerColor("w");//along with the fact that you're moving white rocks.
             player1.setBar(0);//Lastly, your bar is number 0.
+            goShorty = 1;//continue, you play your turns.
 
             player2.setName("Enemy");
             player2.setPlayerNumber(2);//Unlucky him, he's player 2
@@ -281,7 +303,7 @@ public class Main {
             player2.setYourTurn(1);//and it's his turn, you establish that.
             player2.setPlayerColor("w");//You let him know that he's playing with white stones,
             player2.setBar(0);//and his bar is number 0.
-
+            goShorty = 0;//wait for turn
 
             player1.setName(tempPlayer.getName());//get your name
             player1.setPlayerNumber(2);//You are playing second,
@@ -322,8 +344,6 @@ public class Main {
         player2.setNumbersFromRoll1(0);//now he has to roll to get numbers again
         player2.setNumbersFromRoll2(0);//now he has to roll to get numbers again
     }
-
-    public static int targetVectorToLandOn;
 
     public static void getOffTheBarFirst(){
         Scanner diceInput = new Scanner(System.in);
@@ -510,8 +530,6 @@ public class Main {
         }
     }
 
-
-public static int targetVectorToBearOff;
     public static boolean bearOffPossible(){
         /*to be able to bear off, all 15 stones must be within the current player's home board,
         and none must be on the bar or the battlefield.
@@ -575,19 +593,28 @@ public static int targetVectorToBearOff;
                 System.out.println("Something's off, bear off method");
         }
 
-
-public static void gameLoop() {
+    public static void gameLoop() throws IOException {
 
     Scanner reader = new Scanner(System.in);
 
     while ((board.gameOver() == 0) && (currentPlayer.yourTurn == 1)) {//If the game hasn't ended and it's still your turn,
-        if(currentPlayer.getName().equals("Enemy")){
+    sendTurn();
+        System.out.println("It got to sendTurn");
+        if(goShorty == 0){
+            receiveTurn();
            continue;
         }
         else
         System.out.println("Your turn, go!");
-        CLI.draw(board);
 
+       // if(firstRound == 1){
+       //     sendBoardToServer();
+      //  }
+       // else{
+       //     receiveBoardFromServer();
+      //  }
+
+        CLI.draw(board);
 
         if (currentPlayer.getMovesLeft() == 0) {//if you have no turns, you haven't rolled your dice yet,
             dice.rollDice();//you throw the dice.
@@ -661,64 +688,89 @@ public static void gameLoop() {
     }
 }
 
-    public static void receiveTurn(Socket socket) throws IOException {
+    public static void receiveTurn() throws IOException {
+        String host = "localhost";//change for different server
+        int port = 6061;//port for devices to connect to
+        StringBuffer instr = new StringBuffer();
+        String Timestamp;
+        System.out.println("receiveTurn initialized succesfully.");
+
+
         try {
-            DataInputStream in = new DataInputStream(socket.getInputStream());//create stream
+
+            Socket connection = new Socket(host, port);//establishes a socket for connection on that address, on that port
+            BufferedOutputStream bos = new BufferedOutputStream(connection.getOutputStream());//create output stream
+            OutputStreamWriter osw = new OutputStreamWriter(bos);//create write for output
+            osw.write(1);//to enable receiveTurnOnServer
+
+            DataInputStream in = new DataInputStream(connection.getInputStream());//create stream
             InputStreamReader isr = new InputStreamReader(in);//create stream reader
-            currentPlayer.yourTurn = isr.read();//read stream
-            isr.close();
-            in.close();//close
+            goShorty = isr.read();//read stream
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void sendTurn(Socket socket){
+    //sendTurn WORKS
+    public static void sendTurn() throws IOException{
+        String host = "localhost";//change for different server
+        int port = 6061;//port for devices to connect to
+        StringBuffer instr = new StringBuffer();
+        String Timestamp;
+        System.out.println("sendTurn initialized succesfully.");
+
         try{
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-            OutputStreamWriter osw = new OutputStreamWriter(out);
-            osw.write(currentPlayer.yourTurn);
-            osw.close();
-            out.close();
-        } catch (IOException e) {
+
+            Socket connection = new Socket(host, port);//establishes a socket for connection on that address, on that port
+            BufferedOutputStream bos = new BufferedOutputStream(connection.getOutputStream());//create output stream
+            OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");//create write for output
+            osw.write(1);//to enable sendTurn on server
+            osw.flush();
+            goShorty = 1;
+            osw.write(goShorty);//write turn
+            osw.flush();
+
+
+//            BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());//input stream
+//            InputStreamReader isr = new InputStreamReader(bis, "US-ASCII");// read input stream
+//            int c;//integer 13 in text, remember?
+//            while((c = isr.read()) != 13){//while we've not met the EOF
+//                instr.append((char) c);//append to the string
+
+//            }
+//            System.out.println(instr);//print out string
+            connection.close();//close connection, job done
+
+        }
+        catch (IOException e) {
             e.printStackTrace();
+        }
+        finally{
+            System.out.println("Turn sent to server. Closing connection...");
         }
     }
 
-
-public static void receiveRollFromServer(){
+    public static void receiveRollFromServer(){
     //Sending
     String host = "localhost";//change for different server
     int port = 6061;//port for devices to connect to
-    StringBuffer instr = new StringBuffer();
+    StringBuffer instr = new StringBuffer();//for the instructions
     String Timestamp;
-    System.out.println("SocketClient initialized succesfully.");
+    System.out.println("receiveRollFromServer initialized succesfully.");
     try{
-        InetAddress address = InetAddress.getByName(host);//server realizes its own address
-        Socket connection = new Socket(address, port);//establishes a socket for connection on that address, on that port
-        BufferedOutputStream bos = new BufferedOutputStream(connection.getOutputStream());//create output stream
-        OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");//create write for output
-        Timestamp = new Date().toString();//get timestamp of connection
-        String process = "RECV: Connected to "+ host +", on port "+port+", at "+Timestamp + (char) 13;
-        osw.write(process);//write to outputstreamwriter
-        osw.flush();//flush anything left in the buffer
+        Socket connection = new Socket(host, port);//establishes a socket for connection on that address, on that port
 
         //Receiving
         DataInputStream in = new DataInputStream(connection.getInputStream());//create stream
         InputStreamReader isr = new InputStreamReader(in);//create stream reader
-        tempPlayer.setNumbersFromRoll1(isr.read());
-        player2.setNumbersFromRoll1(isr.read());
+        tempPlayer.setNumbersFromRoll1(isr.read());//read first value into temp player for comparison
+        player2.setNumbersFromRoll1(isr.read());//read second value into p2 for comparison
         System.out.println("player 1, dice1: "+ tempPlayer.getNumbersFromRoll1());
         System.out.println("player 2, dice1: "+ player2.getNumbersFromRoll1());
 
-        BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());//input stream
-        isr = new InputStreamReader(bis, "US-ASCII");// read input stream
-        int c;//integer 13 in text, remember?
-        while((c = isr.read()) != 13){//while we've not met the EOF
-            instr.append((char) c);//append to the string
-
-        }
-        System.out.println(instr);//print out string
+        //For response from server
+        System.out.println("receiveRollFromServer executed succesfully");
         connection.close();//close socket
 
     } catch (UnsupportedEncodingException e) {
@@ -730,7 +782,8 @@ public static void receiveRollFromServer(){
     }
 
 }
-    public static void main(String args[]) {
+
+    public static void main(String args[]) throws IOException {
 
 
         uuid = UUID.randomUUID().getMostSignificantBits();//generate unique id as players have not been assigned numbers yet

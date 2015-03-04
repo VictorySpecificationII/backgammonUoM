@@ -18,7 +18,7 @@ import java.io.*;
 //BUG FIX*:Fixed above bug, definitely fixed, tested at 1551 on 05/12/14
 //BUG FIX: Fixed bug where they wouldn't stack up past 5 - definitely fixed, tested at 0427 on 13/11/14
 
-public class Client2{
+public class Client2 {
     //Global variables section
     //--------------------------------------------------------------------
     public static String enemyColor = "n";
@@ -73,6 +73,12 @@ public class Client2{
         System.out.println("Moves left for "+ currentPlayer.getName() + ": "+currentPlayer.getMovesLeft());
         //If you've played your last move, and you have no moves left,
         if(currentPlayer.getMovesLeft() == 0){
+            try {
+                sendTurn();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             twoMoves = false;//you no longer have two moves,
             fourMoves = false;//you no longer have four moves.
             if(currentPlayer.getPlayerNumber() == 1){//If the current player is the first player
@@ -88,6 +94,7 @@ public class Client2{
                 enemyPlayer = tempPlayer;//Now that their mate is the current player they are the enemy player.
                 System.out.println("Enemy player: " + enemyPlayer.getName());
 
+
             }//OR, the current player was player 2 and not player 1
             else if(currentPlayer.getPlayerNumber() == 2){//If the current player is the second player
                 // System.out.println("second if");
@@ -102,6 +109,7 @@ public class Client2{
                 System.out.println("Current player: " + currentPlayer.getName());
                 enemyPlayer = tempPlayer;//Now that their mate is the current player they are the enemy player.
                 System.out.println("Enemy player: " + enemyPlayer.getName());
+
             }
         }
     }
@@ -586,6 +594,7 @@ public class Client2{
             }
             else
                 System.out.println("Your turn, go!");
+
             CLI.draw(board);
 
 
@@ -666,20 +675,45 @@ public class Client2{
             DataInputStream in = new DataInputStream(socket.getInputStream());//create stream
             InputStreamReader isr = new InputStreamReader(in);//create stream reader
             currentPlayer.yourTurn = isr.read();//read stream
-            isr.close();
-            in.close();//close
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void sendTurn(Socket socket){
+    public static void sendTurn() throws IOException{
+        String host = "localhost";//change for different server
+        int port = 6061;//port for devices to connect to
+        StringBuffer instr = new StringBuffer();
+        String Timestamp;
+        System.out.println("SocketClient initialized succesfully.");
+
         try{
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-            OutputStreamWriter osw = new OutputStreamWriter(out);
+
+            InetAddress address = InetAddress.getByName(host);//server realizes its own address
+            Socket connection = new Socket(address, port);//establishes a socket for connection on that address, on that port
+            BufferedOutputStream bos = new BufferedOutputStream(connection.getOutputStream());//create output stream
+            OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");//create write for output
+            Timestamp = new Date().toString();//get timestamp of connection
+            String process = "SEND: Connected to "+ host +", on port "+port+", at "+Timestamp + (char) 13;
+            osw.write(process);//write to output stream writer
+            osw.flush();//flush anything left in the buffer
+
+            DataOutputStream out = new DataOutputStream(connection.getOutputStream());
+            osw = new OutputStreamWriter(out);
             osw.write(currentPlayer.yourTurn);
-            osw.close();
-            out.close();
+
+
+            BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());//input stream
+            InputStreamReader isr = new InputStreamReader(bis, "US-ASCII");// read input stream
+            int c;//integer 13 in text, remember?
+            while((c = isr.read()) != 13){//while we've not met the EOF
+                instr.append((char) c);//append to the string
+
+            }
+            System.out.println(instr);//print out string
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -690,7 +724,7 @@ public class Client2{
         //Sending
         String host = "localhost";//change for different server
         int port = 6061;//port for devices to connect to
-        StringBuffer instr = new StringBuffer();
+        StringBuffer instr = new StringBuffer();//for the instructions
         String Timestamp;
         System.out.println("SocketClient initialized succesfully.");
         try{
@@ -706,11 +740,12 @@ public class Client2{
             //Receiving
             DataInputStream in = new DataInputStream(connection.getInputStream());//create stream
             InputStreamReader isr = new InputStreamReader(in);//create stream reader
-            tempPlayer.setNumbersFromRoll1(isr.read());
-            player2.setNumbersFromRoll1(isr.read());
+            tempPlayer.setNumbersFromRoll1(isr.read());//read first value into temp player for comparison
+            player2.setNumbersFromRoll1(isr.read());//read second value into p2 for comparison
             System.out.println("player 1, dice1: "+ tempPlayer.getNumbersFromRoll1());
             System.out.println("player 2, dice1: "+ player2.getNumbersFromRoll1());
 
+            //For response from server
             BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());//input stream
             isr = new InputStreamReader(bis, "US-ASCII");// read input stream
             int c;//integer 13 in text, remember?

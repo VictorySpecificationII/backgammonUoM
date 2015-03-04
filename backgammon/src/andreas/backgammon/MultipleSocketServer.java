@@ -20,11 +20,15 @@ public class MultipleSocketServer implements Runnable {
     public static HashMap<Integer, Integer> barServerSide = new HashMap<Integer, Integer>(2);//create a bar on server
     public static HashMap<Integer, String> barColorsServerSide= new HashMap<Integer, String>(2);//create colors on server
     public static HashMap<Integer, SocketAddress> connectionsMap = new HashMap(2);//map to keep track of connections
-    public static int turn = 1;//turn for when its time to let the other player know it's their turn
+    public static int turn = 0;//turn for when its time to let the other player know it's their turn
     public static int dice1 = 0;
     public static int dice2 = 0;
     public static boolean firstConnection = true;//after first client connects, reverse the numbers
     public static boolean doAgain = true;//for sendRoll
+    public static int receiveTurnVariable = 0;
+    public static int sendTurnVariable = 0;
+    public static int receiveTablesvariable = 0;
+    public static int sendTablesVariable = 0;
 
 
     //object for creating runnables
@@ -36,35 +40,28 @@ public class MultipleSocketServer implements Runnable {
 
     public void run() {
         try {
-            BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
-            InputStreamReader isr = new InputStreamReader(is);
-            int character;
-            StringBuffer process = new StringBuffer();
-            while((character = isr.read()) != 13) {
-                process.append((char)character);
-            }
-            System.out.println(process);
-            try {
-                if(doAgain) {
-                    sendRoll(connection);
-                }
-                else {
-                    System.out.println("It skipped sendRoll");
-                }
-            }
-            catch (Exception e){}
+           //   if(doAgain) {
+                  sendRoll(connection);
+           //   }
+
+                  receiveTurn(connection);
+
+              //    sendTurn(connection);
+
+              //    sendBoardToClient(connection);
+
+              //    receiveBoardFromClient(connection);
+
+
             TimeStamp = new java.util.Date().toString();
-            String returnCode = "MultipleSocketServer responded at "+ TimeStamp + (char) 13;
-            BufferedOutputStream os = new BufferedOutputStream(connection.getOutputStream());
-            OutputStreamWriter osw = new OutputStreamWriter(os, "US-ASCII");
-            osw.write(returnCode);
-            osw.flush();
+            System.out.println("Server responded at " + TimeStamp);
         }
         catch (Exception e) {
             System.out.println(e);
         }
         finally {
             try {
+                System.out.println("Closing connection...");
                 connection.close();
             }
             catch (IOException e){}
@@ -93,6 +90,7 @@ public class MultipleSocketServer implements Runnable {
             osw.write(dice2);
             osw.flush();
             firstConnection = false;
+
         }
         else if(firstConnection == false){
             osw.write(dice2);
@@ -110,12 +108,28 @@ public class MultipleSocketServer implements Runnable {
 
      }
 
+
+    //receiveTurn WORKS
     public static void receiveTurn(Socket socket) throws IOException {
+        InputStream in = new DataInputStream(socket.getInputStream());//create stream
+        InputStreamReader isr = new InputStreamReader(in);//create stream reader
+
         try {
-            DataInputStream in = new DataInputStream(socket.getInputStream());//create stream
-            InputStreamReader isr = new InputStreamReader(in);//create stream reader
-            turn = isr.read();//read stream
-            isr.close();//close
+            Thread.sleep(15000);//to avoid java.lang.OutOfMemoryError
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            receiveTurnVariable = isr.read();//enable receiveTurn variable
+            if(receiveTurnVariable == 1) {
+                turn = isr.read();//updateTurn
+                System.out.println("Turn received");
+                System.out.println(turn);
+            }
+            else{
+                System.out.println("receiveTurn not activated.");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -126,7 +140,8 @@ public class MultipleSocketServer implements Runnable {
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
             OutputStreamWriter osw = new OutputStreamWriter(out);
             osw.write(turn);
-            osw.close();
+            osw.flush();
+            sendTurnVariable = 0;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -161,6 +176,7 @@ public class MultipleSocketServer implements Runnable {
             osw.write(turn);
             primitiveTypes.close();//close input stream
 
+            sendTablesVariable = 0;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -188,6 +204,7 @@ public class MultipleSocketServer implements Runnable {
             mapInputStream = new ObjectInputStream(InputStream);//define input stream for incoming map
             barColorsServerSide = (HashMap<Integer, String>)mapInputStream.readObject();//read bar color contents into map
             mapInputStream.close();//close input stream
+            receiveTablesvariable = 0;
         }
         catch(IOException e){
             System.out.println(e);
