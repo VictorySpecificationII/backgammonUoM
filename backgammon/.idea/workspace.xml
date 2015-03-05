@@ -28,11 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.5" vertical-offset="2815" max-vertical-offset="3638">
-              <caret line="752" column="4" selection-start-line="752" selection-start-column="4" selection-end-line="752" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.33333334" vertical-offset="2818" max-vertical-offset="4148">
+              <caret line="714" column="20" selection-start-line="714" selection-start-column="20" selection-end-line="714" selection-end-column="20" />
               <folding>
                 <element signature="method#makeMoves#0;class#Main#0" expanded="false" />
                 <element signature="method#sendBoardToServer#0;class#Main#0" expanded="false" />
@@ -46,7 +46,6 @@
                 <element signature="method#bearOff#0;class#Main#0" expanded="false" />
                 <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
                 <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
-                <element signature="method#receiveRollFromServer#0;class#Main#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -64,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MultipleSocketServer.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="MultipleSocketServer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/MultipleSocketServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.326284" vertical-offset="1201" max-vertical-offset="2057">
-              <caret line="81" column="14" selection-start-line="81" selection-start-column="14" selection-end-line="81" selection-end-column="14" />
+            <state vertical-scroll-proportion="-2.9230769" vertical-offset="1284" max-vertical-offset="1649">
+              <caret line="111" column="6" selection-start-line="111" selection-start-column="6" selection-end-line="111" selection-end-column="6" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#616#634#0" expanded="true" />
@@ -77,6 +76,7 @@
                 <element signature="e#986#1003#0" expanded="true" />
                 <element signature="method#MultipleSocketServer#0;class#MultipleSocketServer#0" expanded="false" />
                 <element signature="method#sendRoll#0;class#MultipleSocketServer#0" expanded="false" />
+                <element signature="method#receiveTurn#0;class#MultipleSocketServer#0" expanded="false" />
                 <element signature="method#sendTurn#0;class#MultipleSocketServer#0" expanded="false" />
                 <element signature="method#sendBoardToClient#0;class#MultipleSocketServer#0" expanded="false" />
                 <element signature="method#receiveBoardFromClient#0;class#MultipleSocketServer#0" expanded="false" />
@@ -149,8 +149,8 @@
         <option value="$PROJECT_DIR$/src/andreas/backgammon/OfflinePvPClient.java" />
         <option value="$PROJECT_DIR$/src/andreas/backgammon/test3.java" />
         <option value="$PROJECT_DIR$/src/andreas/backgammon/Client2.java" />
-        <option value="$PROJECT_DIR$/src/andreas/backgammon/Main.java" />
         <option value="$PROJECT_DIR$/src/andreas/backgammon/MultipleSocketServer.java" />
+        <option value="$PROJECT_DIR$/src/andreas/backgammon/Main.java" />
       </list>
     </option>
   </component>
@@ -629,7 +629,6 @@
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
-            <element signature="method#receiveRollFromServer#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -651,7 +650,6 @@
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
-            <element signature="method#receiveRollFromServer#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -687,7 +685,6 @@
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
-            <element signature="method#receiveRollFromServer#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -723,7 +720,6 @@
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
-            <element signature="method#receiveRollFromServer#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -759,7 +755,6 @@
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
-            <element signature="method#receiveRollFromServer#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -795,7 +790,6 @@
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
-            <element signature="method#receiveRollFromServer#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -831,7 +825,6 @@
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
-            <element signature="method#receiveRollFromServer#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -867,7 +860,6 @@
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
-            <element signature="method#receiveRollFromServer#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -903,7 +895,6 @@
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
-            <element signature="method#receiveRollFromServer#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -939,7 +930,6 @@
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
-            <element signature="method#receiveRollFromServer#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1090,10 +1080,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/MultipleSocketServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.9230769" vertical-offset="1284" max-vertical-offset="1649">
+          <caret line="111" column="6" selection-start-line="111" selection-start-column="6" selection-end-line="111" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#616#634#0" expanded="true" />
+            <element signature="e#736#753#0" expanded="true" />
+            <element signature="e#864#882#0" expanded="true" />
+            <element signature="e#986#1003#0" expanded="true" />
+            <element signature="method#MultipleSocketServer#0;class#MultipleSocketServer#0" expanded="false" />
+            <element signature="method#sendRoll#0;class#MultipleSocketServer#0" expanded="false" />
+            <element signature="method#receiveTurn#0;class#MultipleSocketServer#0" expanded="false" />
+            <element signature="method#sendTurn#0;class#MultipleSocketServer#0" expanded="false" />
+            <element signature="method#sendBoardToClient#0;class#MultipleSocketServer#0" expanded="false" />
+            <element signature="method#receiveBoardFromClient#0;class#MultipleSocketServer#0" expanded="false" />
+            <element signature="method#main#0;class#MultipleSocketServer#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.5" vertical-offset="2815" max-vertical-offset="3638">
-          <caret line="752" column="4" selection-start-line="752" selection-start-column="4" selection-end-line="752" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="2818" max-vertical-offset="4148">
+          <caret line="714" column="20" selection-start-line="714" selection-start-column="20" selection-end-line="714" selection-end-column="20" />
           <folding>
             <element signature="method#makeMoves#0;class#Main#0" expanded="false" />
             <element signature="method#sendBoardToServer#0;class#Main#0" expanded="false" />
@@ -1107,27 +1118,6 @@
             <element signature="method#bearOff#0;class#Main#0" expanded="false" />
             <element signature="method#receiveTurn#0;class#Main#0" expanded="false" />
             <element signature="method#sendTurn#0;class#Main#0" expanded="false" />
-            <element signature="method#receiveRollFromServer#0;class#Main#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/andreas/backgammon/MultipleSocketServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.326284" vertical-offset="1201" max-vertical-offset="2057">
-          <caret line="81" column="14" selection-start-line="81" selection-start-column="14" selection-end-line="81" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#616#634#0" expanded="true" />
-            <element signature="e#736#753#0" expanded="true" />
-            <element signature="e#864#882#0" expanded="true" />
-            <element signature="e#986#1003#0" expanded="true" />
-            <element signature="method#MultipleSocketServer#0;class#MultipleSocketServer#0" expanded="false" />
-            <element signature="method#sendRoll#0;class#MultipleSocketServer#0" expanded="false" />
-            <element signature="method#sendTurn#0;class#MultipleSocketServer#0" expanded="false" />
-            <element signature="method#sendBoardToClient#0;class#MultipleSocketServer#0" expanded="false" />
-            <element signature="method#receiveBoardFromClient#0;class#MultipleSocketServer#0" expanded="false" />
-            <element signature="method#main#0;class#MultipleSocketServer#0" expanded="false" />
           </folding>
         </state>
       </provider>

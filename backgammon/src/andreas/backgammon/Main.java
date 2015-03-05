@@ -750,7 +750,7 @@ public class Main {
             System.out.println("Turn sent to server. Closing connection...");
         }
     }
-    //receiveRollFromServer WORKS
+
     public static void receiveRollFromServer(){
     //Sending
     String host = "localhost";//change for different server

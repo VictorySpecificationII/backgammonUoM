@@ -79,7 +79,6 @@ public class MultipleSocketServer implements Runnable {
         }
     }
 
-    //sendRoll WORKS
     private static void sendRoll(Socket socket) throws IOException {
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         OutputStreamWriter osw = new OutputStreamWriter(out);
