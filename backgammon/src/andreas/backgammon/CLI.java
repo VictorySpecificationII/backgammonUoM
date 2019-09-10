@@ -43,7 +43,7 @@ public class CLI {
         sb.append("|                              |                              |     Bar:"+ board.bar.get(0)+" white rocks\n");
         sb.append("|                              |                              |         "+ board.bar.get(1)+ " black rocks\n");
 
-        sb.append("|  "+board.deck.get(1)+"    "+
+        sb.append("|  "+board.deck.get(13)+"    "+
                 board.deck.get(14)+"    "+
                 board.deck.get(15)+"    "+
                 board.deck.get(16)+"    "+
